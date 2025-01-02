@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 };
 
 // FONT CONFIGURATION
-const customFont = localFont({
-  // THIS CAN BE AN ARRAY TOO, CHECK NEXT DOCS
-  src: "./",
-});
+// const customFont = localFont({
+// THIS CAN BE AN ARRAY TOO, CHECK NEXT DOCS
+// src: "./",
+// });
 
 export default function RootLayout({
   children,
@@ -19,7 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={customFont.className}>
+    // ADD THIS CLASS TO HTML ELEMENT FOR ADDING THE FONT className={customFont.className}
+    <html lang="en">
       <body>
         <main>
           <h1>NAVBAR IS NEEDED</h1>
