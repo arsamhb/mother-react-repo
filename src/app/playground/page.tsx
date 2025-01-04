@@ -1,9 +1,7 @@
 "use client";
 
-
-
 const PlayGround = () => {
-  return <div>playgraound</div>
+  return <div>playgraound</div>;
 };
 
 export default PlayGround;

@@ -1,8 +1,13 @@
 import axios, { AxiosError } from "axios";
-import { UNKNOWN_ERROR } from "./response-default-messages/errors";
+
+export const UNKNOWN_ERROR = {
+  message: "خطایی رخ داده است.",
+  statusCode: 410,
+};
+
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL ?? "",
+  baseURL: process.env.REACT_APP_BASE_URL ?? "www.example.com/api",
   timeout: 5000,
 });
 
@@ -50,14 +55,15 @@ const _delete = <T>(url: string) => {
   };
 };
 
-const put = <T>(
+const put = <T, O>(
   url: string,
-  local2api: (local: T) => any = (local: T) => local
+  local2api: (local: T) => any = (local: T) => local,
+  api2local: (api: any) => O = (api: any) => api
 ) => {
   return async (body: T) => {
     try {
       const response = await instance.put(url, local2api(body));
-      return response.data;
+      return api2local(response.data) as O;
     } catch (e) {
       const error = e as AxiosError;
       return Promise.reject(error.response?.data ?? UNKNOWN_ERROR);
