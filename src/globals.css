@@ -14,8 +14,56 @@
   }
 }
 
+/* 
+SOME SUGGESTED CSS STYLING
+* {
+  direction: rtl;
+} */
+
+/* 
+SOME SUGGESTED CSS STYLING
+#root {
+  width: 100vw;
+  min-height: 100vh;
+} */
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Button COMPONENT CONFIGURATION */
+.button-primary-theme {
+  @apply btn btn-primary;
+}
+
+.button-secondary-theme {
+  @apply btn btn-secondary;
+}
+
+/* Input COMPONENT CONFIGURATION */
+.input-label-theme {
+  @apply input input-bordered flex items-center gap-2;
+}
+
+.input-input-theme {
+  @apply grow;
+}
+.error-text {
+  @apply text-error
+}
+
+
+/* ModalWrapper  COMPONENT CONFIGURATION */
+.modal {
+  @apply relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg;
+}
+
+.modal-box {
+  @apply pt-2;
+}
+
+.modal-close-btn {
+  @apply absolute top-2 left-4;
 }
