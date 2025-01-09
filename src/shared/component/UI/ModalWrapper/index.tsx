@@ -31,11 +31,11 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
       <Button variant={buttonVariant} onClick={openModal}>
         {buttonTitle}
       </Button>
-      <dialog id={modalId} className="modal">
-        <button onClick={closeModal} className="modal-close-btn">
+      <dialog id={modalId} className="custom-modal">
+        <button onClick={closeModal} className="custom-modal-close-btn">
           ✕
         </button>
-        <div className="modal-box">{children}</div>
+        <div className="custom-modal-box">{children}</div>
       </dialog>
     </>
   );

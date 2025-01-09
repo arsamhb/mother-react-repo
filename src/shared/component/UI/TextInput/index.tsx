@@ -17,10 +17,10 @@ const TextInput: React.FC<TextInputProps> = ({
 }) => {
   return (
     <div>
-      <label className="input-label-theme">
+      <label className="custom-text-input-label">
         <input
           type={type}
-          className="input-input-theme"
+          className="custom-text-input"
           placeholder={placeholder}
           value={value}
           onChange={(e) => setValue(e.target.value)}

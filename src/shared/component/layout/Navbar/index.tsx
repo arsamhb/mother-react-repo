@@ -14,8 +14,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
   return (
-    <nav className="navbar-custom">
-      <div className="navbar-custom-start">
+    <nav className="custom-navbar">
+      <div className="custom-navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
           />
         </Link>
       </div>
-      <div className="navbar-custom-end">
+      <div className="custom-navbar-end">
         <ul className="menu menu-horizontal px-1">
           {items &&
             items.map((item, index) => {

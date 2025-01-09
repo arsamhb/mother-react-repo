@@ -12,17 +12,17 @@ const Skeleton: React.FC<SkeletonProps> = ({ shape, heightRem, widthRem }) => {
   if (shape === "circle")
     return (
       <div
-        className={`skeleton-${shape} h-${heightRem * 4} w-${widthRem * 4}`}
+        className={`custom-skeleton-${shape} h-${heightRem * 4} w-${widthRem * 4}`}
       ></div>
     );
 
   if (shape === "line")
-    return <div className={`skeleton-${shape} w-${widthRem * 4}`}></div>;
+    return <div className={`custom-skeleton-${shape} w-${widthRem * 4}`}></div>;
   
   if (shape === "rectangle")
     return (
       <div
-        className={`skeleton-${shape} h-${heightRem * 4} w-${widthRem * 4}`}
+        className={`custom-skeleton-${shape} h-${heightRem * 4} w-${widthRem * 4}`}
       ></div>
     );
 };

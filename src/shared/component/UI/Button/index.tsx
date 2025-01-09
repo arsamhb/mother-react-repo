@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
 }) => {
   return (
-    <button onClick={onClick} className={`button-${variant}-theme`}>
+    <button onClick={onClick} className={`custom-button-${variant}`}>
       {children}
     </button>
   );

@@ -10,7 +10,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
   return (
-    <footer className="footer">
+    <footer className="custom-footer">
       <section>
         <aside>
           <Image
@@ -28,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
         {linkGroups.map((item, i) => {
           return (
             <nav>
-              <h6 className="footer-title" key={i}>
+              <h6 className="custom-footer-title" key={i}>
                 {item.title}
               </h6>
               {item.links.map((link, idx) => {

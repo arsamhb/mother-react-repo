@@ -19,8 +19,8 @@ const Accordion: React.FC<AccordionProps> = ({
             name={accordionName}
             defaultChecked={index === 0}
           />
-          <div className="collapse-title text-xl font-medium">{item.title}</div>
-          <div className="collapse-content">
+          <div className="custom-accordion-title text-xl font-medium">{item.title}</div>
+          <div className="custom-accordion-content">
             <p>{item.description}</p>
           </div>
         </div>

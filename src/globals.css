@@ -34,20 +34,25 @@ body {
 }
 
 /* Button COMPONENT CONFIGURATION */
-.button-primary-theme {
+.custom-button-primary {
   @apply btn btn-primary;
 }
 
-.button-secondary-theme {
+.custom-button-secondary {
   @apply btn btn-secondary;
 }
 
+/* CheckboxInput COMPONENT CONFIGURATION */
+.custom-checkbox-input {
+  @apply checkbox checkbox-primary border-2
+}
+
 /* TextInput COMPONENT CONFIGURATION */
-.input-label-theme {
+.custom-text-input-label {
   @apply input input-bordered flex items-center gap-2;
 }
 
-.input-input-theme {
+.custom-text-input {
   @apply grow;
 }
 
@@ -56,62 +61,66 @@ body {
 }
 
 /* ModalWrapper COMPONENT CONFIGURATION */
-.modal {
+.custom-modal {
   @apply relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg;
 }
 
-.modal-box {
+.custom-modal-box {
   @apply pt-2;
 }
 
-.modal-close-btn {
+.custom-modal-close-btn {
   @apply absolute top-2 left-4;
 }
 
 /* Accordion COMPONENT CONFIGURATION */
-.collapse-title {
+.custom-accordion-title {
   @apply bg-primary p-2 rounded-t-lg;
 }
 
-.collapse-content {
+.custom-accordion-content {
   @apply bg-primary-content rounded-b-lg;
 }
 
 /* Navbar COMPONENT CONFIGURATION */
-.navbar-custom {
+.custom-navbar {
   @apply navbar bg-base-100
 }
 
-.navbar-custom-start {
+.custom-navbar-start {
   @apply navbar-start
 }
 
-.navbar-custom-end {
+.custom-navbar-end {
   @apply navbar-end hidden lg:flex
 }
 
 /* Footer COMPONENT CONFIGURATION */
-.footer {
+.custom-footer {
   @apply flex items-center flex-col justify-between bg-base-200 text-base-content p-10;
 }
 
-.footer>section {
+.custom-footer>section {
   @apply flex items-center flex-col md:flex-row justify-between w-full;
 }
 
-.footer>section>nav {
+.custom-footer>section>nav {
   @apply flex items-start flex-col justify-between;
 }
 
+.custom-footer-title {
+  @apply footer-title
+}
+
 /* Skeleton COMPONENT CONFIGURATION */
-.skeleton-circle {
+.custom-skeleton-circle {
   @apply skeleton shrink-0 rounded-full
 }
 
-.skeleton-rectangle {
+.custom-skeleton-rectangle {
   @apply skeleton
 }
 
-.skeleton-line {
+.custom-skeleton-line {
   @apply skeleton h-4
 }
