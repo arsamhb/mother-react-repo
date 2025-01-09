@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import type { Metadata } from "next";
 import "@/globals.css";
+import Navbar from "@/shared/component/layout/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +24,16 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <main>
-          <h1>NAVBAR IS NEEDED</h1>
+          <Navbar
+            title="NAVBAR"
+            items={[
+              { linkURL: "/about", title: "about" },
+              {
+                parent: "parent",
+                children: [{ linkURL: "/about", title: "about in parent" }],
+              },
+            ]}
+          />
           {children}
           <h1>FOOTER IS NEEDED</h1>
         </main>
