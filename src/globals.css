@@ -37,6 +37,7 @@ body {
 .button-primary-theme {
   @apply btn btn-primary;
 }
+
 .button-secondary-theme {
   @apply btn btn-secondary;
 }
@@ -45,9 +46,11 @@ body {
 .input-label-theme {
   @apply input input-bordered flex items-center gap-2;
 }
+
 .input-input-theme {
   @apply grow;
 }
+
 .error-text {
   @apply text-error;
 }
@@ -56,9 +59,11 @@ body {
 .modal {
   @apply relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg;
 }
+
 .modal-box {
   @apply pt-2;
 }
+
 .modal-close-btn {
   @apply absolute top-2 left-4;
 }
@@ -67,19 +72,33 @@ body {
 .collapse-title {
   @apply bg-primary p-2 rounded-t-lg;
 }
+
 .collapse-content {
   @apply bg-primary-content rounded-b-lg;
+}
+
+/* Navbar COMPONENT CONFIGURATION */
+.navbar-custom {
+  @apply navbar bg-base-100
+}
+
+.navbar-custom-start {
+  @apply navbar-start
+}
+
+.navbar-custom-end {
+  @apply navbar-end hidden lg:flex
 }
 
 /* Footer COMPONENT CONFIGURATION */
 .footer {
   @apply flex items-center flex-col justify-between bg-base-200 text-base-content p-10;
 }
-.footer > section {
+
+.footer>section {
   @apply flex items-center flex-col md:flex-row justify-between w-full;
 }
-.footer > section > nav {
+
+.footer>section>nav {
   @apply flex items-start flex-col justify-between;
 }
-
-
