@@ -6,6 +6,7 @@ interface TextInputProps {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   placeholder: string;
   children?: React.ReactNode;
+  error?: string | undefined;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -14,6 +15,7 @@ const TextInput: React.FC<TextInputProps> = ({
   value,
   placeholder,
   children,
+  error,
 }) => {
   return (
     <div>
@@ -27,7 +29,7 @@ const TextInput: React.FC<TextInputProps> = ({
         />
         {children}
       </label>
-      <p className="error-text">the errors will be shown in here</p>
+      {error && <p className="error-text">{error}</p>}
     </div>
   );
 };

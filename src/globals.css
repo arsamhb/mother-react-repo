@@ -33,6 +33,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
 /* Button COMPONENT CONFIGURATION */
 .custom-button-primary {
   @apply btn btn-primary;
@@ -41,6 +42,7 @@ body {
 .custom-button-secondary {
   @apply btn btn-secondary;
 }
+
 
 /* CheckboxInput COMPONENT CONFIGURATION */
 .custom-checkbox-input {
@@ -53,6 +55,20 @@ body {
 
 .custom-checkbox-input-label-text {
   @apply label-text
+}
+
+
+/* SelectInput COMPONENT CONFIGURATION */
+.custom-select-input-label {
+  @apply w-full max-w-xs
+}
+
+.custom-select-input-label-text {
+  @apply label-text
+}
+
+.custom-select-input {
+  @apply select select-bordered
 }
 
 /* TextInput COMPONENT CONFIGURATION */
@@ -68,6 +84,7 @@ body {
   @apply text-error;
 }
 
+
 /* ModalWrapper COMPONENT CONFIGURATION */
 .custom-modal {
   @apply relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg;
@@ -81,6 +98,7 @@ body {
   @apply absolute top-2 left-4;
 }
 
+
 /* Accordion COMPONENT CONFIGURATION */
 .custom-accordion-title {
   @apply bg-primary p-2 rounded-t-lg;
@@ -89,6 +107,7 @@ body {
 .custom-accordion-content {
   @apply bg-primary-content rounded-b-lg;
 }
+
 
 /* Navbar COMPONENT CONFIGURATION */
 .custom-navbar {
@@ -102,6 +121,7 @@ body {
 .custom-navbar-end {
   @apply navbar-end hidden lg:flex
 }
+
 
 /* Footer COMPONENT CONFIGURATION */
 .custom-footer {
@@ -119,6 +139,7 @@ body {
 .custom-footer-title {
   @apply footer-title
 }
+
 
 /* Skeleton COMPONENT CONFIGURATION */
 .custom-skeleton-circle {
