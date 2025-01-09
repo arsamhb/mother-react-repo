@@ -102,3 +102,16 @@ body {
 .footer>section>nav {
   @apply flex items-start flex-col justify-between;
 }
+
+/* Skeleton COMPONENT CONFIGURATION */
+.skeleton-circle {
+  @apply skeleton shrink-0 rounded-full
+}
+
+.skeleton-rectangle {
+  @apply skeleton
+}
+
+.skeleton-line {
+  @apply skeleton h-4
+}
