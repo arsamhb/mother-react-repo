@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import type { Metadata } from "next";
 import "@/globals.css";
 import Navbar from "@/shared/component/layout/Navbar";
+import Footer from "@/shared/component/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -35,7 +36,28 @@ export default function RootLayout({
             ]}
           />
           {children}
-          <h1>FOOTER IS NEEDED</h1>
+          <Footer
+            linkGroups={[
+              {
+                title: "dummy",
+                links: [
+                  { title: "d1", url: "/d1" },
+                  { title: "d2", url: "/d2" },
+                  { title: "d3", url: "/d3" },
+                  { title: "d4", url: "/d4" },
+                ],
+              },
+              {
+                title: "silly",
+                links: [
+                  { title: "s1", url: "/s1" },
+                  { title: "s2", url: "/s2" },
+                  { title: "s3", url: "/s3" },
+                  { title: "s4", url: "/s4" },
+                ],
+              },
+            ]}
+          />
         </main>
       </body>
     </html>

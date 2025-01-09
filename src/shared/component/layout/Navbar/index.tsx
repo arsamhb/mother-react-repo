@@ -4,7 +4,8 @@ import {
   INavbarItem,
 } from "@/shared/component/layout/Navbar/navbar.interface";
 import Link from "next/link";
-import Button from "../../UI/Button";
+import logoAddress from "@public/img/logo/logo.svg";
+import Image from "next/image";
 
 interface NavbarProps {
   title: string;
@@ -61,8 +62,14 @@ const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
               })}
           </ul>
         </div>
-        <Link href={"/"} className="text-xl">
+        <Link href={"/"} className="text-xl flex items-center">
           {title}
+          <Image
+            src={logoAddress}
+            width={25}
+            height={25}
+            alt="the-business-logo"
+          />
         </Link>
       </div>
       <div className="navbar-end hidden lg:flex">
