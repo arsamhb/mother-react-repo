@@ -1,10 +1,5 @@
-import CheckboxInput from "@/shared/component/UI/CheckboxInput";
-import Skeleton from "@/shared/component/UI/Skeleton";
+"use client";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col gap-4">
-      <CheckboxInput />
-    </div>
-  );
+  return <div className="flex flex-col gap-4">salam </div>;
 }

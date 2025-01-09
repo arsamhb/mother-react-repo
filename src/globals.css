@@ -47,6 +47,14 @@ body {
   @apply checkbox checkbox-primary border-2
 }
 
+.custom-checkbox-input-label {
+  @apply cursor-pointer label
+}
+
+.custom-checkbox-input-label-text {
+  @apply label-text
+}
+
 /* TextInput COMPONENT CONFIGURATION */
 .custom-text-input-label {
   @apply input input-bordered flex items-center gap-2;

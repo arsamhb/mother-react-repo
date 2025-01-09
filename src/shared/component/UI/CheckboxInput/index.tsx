@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React from "react";
 
 interface CheckboxInputProps {
   label: string;
@@ -12,8 +12,8 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
   setIsChecked,
 }) => {
   return (
-    <label className="cursor-pointer label">
-      <span className="label-text">{label}</span>
+    <label className="custom-checkbox-input-label">
+      <span className=" custom-checkbox-input-label-text">{label}</span>
       <input
         type="checkbox"
         checked={isChecked}
