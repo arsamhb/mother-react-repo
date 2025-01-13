@@ -1,10 +1,10 @@
-import React, { ChangeEvent, HTMLInputTypeAttribute } from "react";
+import React, { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
 interface TextInputProps {
   value: string | number;
   label: string;
   type: HTMLInputTypeAttribute;
-  onChange: (e: ChangeEvent<any>) => void;
+  onChange: (e: ChangeEvent<Element>) => void;
   placeholder: string;
   error?: string | undefined;
   id: string;
@@ -24,11 +24,7 @@ const TextInput: React.FC<TextInputProps> = ({
   return (
     <div>
       <div className="label">
-        <h4
-          className={`custom-select-input-label-text ${
-            error && "custom-error-label"
-          }`}
-        >
+        <h4 className={`custom-select-input-label-text ${error && 'custom-error-label'}`}>
           {label}
         </h4>
       </div>

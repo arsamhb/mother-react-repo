@@ -1,6 +1,3 @@
-declare namespace DummyRoute_Response {
-    interface IPostDummy {
-      test: string;
-    }
-  }
-  
+export interface DummyRoute_Response_IPostDummy {
+  test: string;
+}

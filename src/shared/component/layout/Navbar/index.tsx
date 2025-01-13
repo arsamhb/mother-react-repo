@@ -1,11 +1,8 @@
-import React from "react";
-import {
-  INavbarGroup,
-  INavbarItem,
-} from "@/shared/component/layout/Navbar/navbar.interface";
-import Link from "next/link";
-import logoAddress from "@public/img/logo/logo.svg";
-import Image from "next/image";
+import React from 'react';
+import { INavbarGroup, INavbarItem } from '@/shared/component/layout/Navbar/navbar.interface';
+import Link from 'next/link';
+import logoAddress from '@public/img/logo/logo.svg';
+import Image from 'next/image';
 
 interface NavbarProps {
   title: string;
@@ -39,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
           >
             {items &&
               items.map((item, index) => {
-                if ("parent" in item) {
+                if ('parent' in item) {
                   return (
                     <div key={index}>
                       <a>{item.parent}</a>
@@ -62,21 +59,16 @@ const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
               })}
           </ul>
         </div>
-        <Link href={"/"} className="text-xl flex items-center">
+        <Link href={'/'} className="text-xl flex items-center">
           {title}
-          <Image
-            src={logoAddress}
-            width={25}
-            height={25}
-            alt="the-business-logo"
-          />
+          <Image src={logoAddress} width={25} height={25} alt="the-business-logo" />
         </Link>
       </div>
       <div className="custom-navbar-end">
         <ul className="menu menu-horizontal px-1">
           {items &&
             items.map((item, index) => {
-              if ("parent" in item) {
+              if ('parent' in item) {
                 return (
                   <li key={index}>
                     <details>

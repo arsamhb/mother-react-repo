@@ -62,17 +62,15 @@ In the list below you can find a list of all standard names for color names in t
     success             success-content
     warning             warning-content
     error               error-content
-* consider each color as an option in the theme and -content is the color foreground to use on that color.
 
-    base-100            base-200        base-300        base-content
-* base-100 is a background color for the page, -200 and -300 are darker version of it. and base-content is the color foreground to use on that base-100.
+- consider each color as an option in the theme and -content is the color foreground to use on that color.
+
+  base-100 base-200 base-300 base-content
+
+- base-100 is a background color for the page, -200 and -300 are darker version of it. and base-content is the color foreground to use on that base-100.
 
 CAUTION: before adding or defining any new component check the DaisyUI documentation.
 
 For theming you can go to ./tailwind.config.ts, this file includes a basic configuration for DaisyUI colors, and also a custom config for the tailwind, this basic configuration contains spacing (padding, margin and gap), border radius, border width and font size. The font size is an empty configuration so you can customize it based on the UI.
 
 ATTENTION: Each component in ./component/UI/... has its own stylings in the global.css file, and those components accept the variants as the prop to render what they should render. During the development keep this structure consistent for shared components.
-
-
-
-

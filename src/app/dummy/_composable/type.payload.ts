@@ -1,5 +1,3 @@
-declare namespace DummyRoute_Payload {
-  interface IPostDummy {
-    test: string;
-  }
+export interface DummyRoute_Payload_IPostDummy {
+  test: string;
 }

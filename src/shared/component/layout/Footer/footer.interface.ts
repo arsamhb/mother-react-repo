@@ -1,10 +1,9 @@
 export interface IFooterLink {
-    title:string,
-    url:string
+  title: string;
+  url: string;
 }
 
 export interface IFooterGroup {
-    title: string,
-    links: Array<IFooterLink>
+  title: string;
+  links: Array<IFooterLink>;
 }
-

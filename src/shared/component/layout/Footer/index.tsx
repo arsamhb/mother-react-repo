@@ -1,8 +1,8 @@
-import Image from "next/image";
-import React from "react";
-import { IFooterGroup } from "./footer.interface";
-import Link from "next/link";
-import logoAddress from "@public/img/logo/logo.svg";
+import Image from 'next/image';
+import React from 'react';
+import { IFooterGroup } from './footer.interface';
+import Link from 'next/link';
+import logoAddress from '@public/img/logo/logo.svg';
 
 interface FooterProps {
   linkGroups: Array<IFooterGroup>;
@@ -13,12 +13,7 @@ const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
     <footer className="custom-footer">
       <section>
         <aside>
-          <Image
-            src={logoAddress}
-            width={100}
-            height={100}
-            alt="the-business-logo"
-          />
+          <Image src={logoAddress} width={100} height={100} alt="the-business-logo" />
           <p>
             A code base
             <br />
@@ -27,10 +22,8 @@ const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
         </aside>
         {linkGroups.map((item, i) => {
           return (
-            <nav>
-              <h6 className="custom-footer-title" key={i}>
-                {item.title}
-              </h6>
+            <nav key={i}>
+              <h6 className="custom-footer-title">{item.title}</h6>
               {item.links.map((link, idx) => {
                 return (
                   <Link href={link.url} key={idx} className="link link-hover">

@@ -1,7 +1,4 @@
-import {
-  IDummyFormSchema,
-  ILocalDummyFormToSend,
-} from "@/app/dummy/_composable/type.schema";
+import { IDummyFormSchema, ILocalDummyFormToSend } from '@/app/dummy/_composable/type.schema';
 
 // ADAPTERS FOR LOCAL TO API
 const localDummy2apiDummy = (

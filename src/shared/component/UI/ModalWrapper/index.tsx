@@ -1,17 +1,17 @@
-import React from "react";
-import Button from "@/shared/component/UI/Button";
+import React from 'react';
+import Button from '@/shared/component/UI/Button';
 
 interface ModalWrapperProps {
   modalId: string;
   children: React.ReactNode;
   buttonTitle: string;
-  buttonVariant: "primary" | "secondary";
+  buttonVariant: 'primary' | 'secondary';
 }
 
 const ModalWrapper: React.FC<ModalWrapperProps> = ({
   modalId,
   children,
-  buttonVariant = "primary",
+  buttonVariant = 'primary',
   buttonTitle,
 }) => {
   const closeModal = () => {

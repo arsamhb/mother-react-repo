@@ -1,13 +1,12 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError } from 'axios';
 
 export const UNKNOWN_ERROR = {
-  message: "خطایی رخ داده است.",
+  message: 'خطایی رخ داده است.',
   statusCode: 410,
 };
 
-
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL ?? "www.example.com/api",
+  baseURL: process.env.REACT_APP_BASE_URL ?? 'www.example.com/api',
   timeout: 5000,
 });
 
@@ -27,11 +26,7 @@ const post = <T, O>(
   };
 };
 
-const get = <O>(
-  url: string,
-  api2local: (api: any) => O = (api) => api,
-  queryParams: any = {}
-) => {
+const get = <O>(url: string, api2local: (api: any) => O = (api) => api, queryParams: any = {}) => {
   return async () => {
     try {
       const response = await instance.get(url, { params: queryParams });

@@ -4,7 +4,6 @@ export interface INavbarItem {
 }
 
 export interface INavbarGroup {
-    parent: string
-    children: Array<INavbarItem>
+  parent: string;
+  children: Array<INavbarItem>;
 }
-

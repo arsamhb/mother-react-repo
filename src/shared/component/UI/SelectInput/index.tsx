@@ -1,11 +1,11 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent } from 'react';
 
 interface SelectInputProps {
   label: string;
   placeholder: string;
   options: Array<{ key: string; value: string }>;
   selected: string;
-  onChange: (e: ChangeEvent<any>) => void;
+  onChange: (e: ChangeEvent<Element>) => void;
   error?: string | undefined;
   id: string;
   name: string;
@@ -24,7 +24,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
   return (
     <div>
       <div className="label">
-        <h4 className={`custom-select-input-label-text ${error && "custom-error-label"}`}>{label}</h4>
+        <h4 className={`custom-select-input-label-text ${error && 'custom-error-label'}`}>
+          {label}
+        </h4>
       </div>
       <label className={`custom-select-input-label`}>
         <select

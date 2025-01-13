@@ -1,4 +1,4 @@
-import { ILocalDummyFormResult } from "@/app/dummy/_composable/type.schema";
+import { ILocalDummyFormResult } from '@/app/dummy/_composable/type.schema';
 
 // ADAPTERS FOR API TO LOCAL
 const apiDummy2localDummy = (
