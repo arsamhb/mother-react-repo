@@ -2,39 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ededed;
-    --foreground: #0a0a0a;
-  }
-}
-
 /* 
 SOME SUGGESTED CSS STYLING
 * {
   direction: rtl;
 } */
 
-/* 
-SOME SUGGESTED CSS STYLING
-#root {
+/* #root {
   width: 100vw;
   min-height: 100vh;
 } */
 
+/* MAIN ELEMENTS STYLING */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply min-h-[100vh] flex flex-col;
 }
 
+main {
+  @apply flex flex-grow;
+}
 
-/* Button COMPONENT CONFIGURATION */
+/* Button */
 .custom-button-primary {
   @apply btn btn-primary;
 }
@@ -43,35 +31,33 @@ body {
   @apply btn btn-secondary;
 }
 
-
-/* CheckboxInput COMPONENT CONFIGURATION */
+/* CheckboxInput */
 .custom-checkbox-input {
-  @apply checkbox checkbox-primary border-2
+  @apply checkbox checkbox-primary border-2;
 }
 
 .custom-checkbox-input-label {
-  @apply cursor-pointer label
+  @apply cursor-pointer label;
 }
 
 .custom-checkbox-input-label-text {
-  @apply label-text
+  @apply label-text;
 }
 
-
-/* SelectInput COMPONENT CONFIGURATION */
+/* SelectInput */
 .custom-select-input-label {
-  @apply w-full max-w-xs
+  @apply w-full max-w-xs;
 }
 
 .custom-select-input-label-text {
-  @apply label-text
+  @apply label-text;
 }
 
 .custom-select-input {
-  @apply select select-bordered
+  @apply select select-bordered;
 }
 
-/* TextInput COMPONENT CONFIGURATION */
+/* TextInput */
 .custom-text-input-label {
   @apply input input-bordered flex items-center gap-2;
 }
@@ -84,8 +70,7 @@ body {
   @apply text-error;
 }
 
-
-/* ModalWrapper COMPONENT CONFIGURATION */
+/* ModalWrapper */
 .custom-modal {
   @apply relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg;
 }
@@ -98,8 +83,7 @@ body {
   @apply absolute top-2 left-4;
 }
 
-
-/* Accordion COMPONENT CONFIGURATION */
+/* Accordion */
 .custom-accordion-title {
   @apply bg-primary p-2 rounded-t-lg;
 }
@@ -108,48 +92,50 @@ body {
   @apply bg-primary-content rounded-b-lg;
 }
 
-
-/* Navbar COMPONENT CONFIGURATION */
+/* Navbar */
 .custom-navbar {
-  @apply navbar bg-base-100
+  @apply navbar bg-accent text-accent-content;
 }
 
 .custom-navbar-start {
-  @apply navbar-start
+  @apply navbar-start;
 }
 
 .custom-navbar-end {
-  @apply navbar-end hidden lg:flex
+  @apply navbar-end hidden lg:flex;
 }
 
-
-/* Footer COMPONENT CONFIGURATION */
+/* Footer */
 .custom-footer {
-  @apply flex items-center flex-col justify-between bg-base-200 text-base-content p-10;
+  @apply flex items-center flex-col justify-between text-secondary-content p-10 bg-secondary;
 }
 
-.custom-footer>section {
+.custom-footer > section {
   @apply flex items-center flex-col md:flex-row justify-between w-full;
 }
 
-.custom-footer>section>nav {
+.custom-footer > section > nav {
   @apply flex items-start flex-col justify-between;
 }
 
 .custom-footer-title {
-  @apply footer-title
+  @apply footer-title;
 }
 
+/* SidebarWrapper */
+.custom-sidebar-styling {
+  @apply flex flex-col w-60 text-primary-content bg-primary;
+}
 
-/* Skeleton COMPONENT CONFIGURATION */
+/* Skeleton */
 .custom-skeleton-circle {
-  @apply skeleton shrink-0 rounded-full
+  @apply skeleton shrink-0 rounded-full;
 }
 
 .custom-skeleton-rectangle {
-  @apply skeleton
+  @apply skeleton;
 }
 
 .custom-skeleton-line {
-  @apply skeleton h-4
+  @apply skeleton h-4;
 }
