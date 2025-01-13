@@ -6,11 +6,8 @@ const layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div>
-        <div>
-            <h2>IT'S COMING FROM DUMMY DYNAMIC LAYOUT</h2>
-        </div>
-        {children}
+    <div className="flex flex-col items-center w-full justify-center">
+      {children}
     </div>
   );
 };

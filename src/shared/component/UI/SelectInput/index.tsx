@@ -7,6 +7,8 @@ interface SelectInputProps {
   selected: string;
   onChange: (e: ChangeEvent<any>) => void;
   error?: string | undefined;
+  id: string;
+  name: string;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({
@@ -16,17 +18,21 @@ const SelectInput: React.FC<SelectInputProps> = ({
   selected,
   onChange,
   error,
+  id,
+  name,
 }) => {
   return (
     <div>
-      <label className="custom-select-input-label">
-        <div className="label">
-          <h4 className="custom-select-input-label-text">{label}</h4>
-        </div>
+      <div className="label">
+        <h4 className={`custom-select-input-label-text ${error && "custom-error-label"}`}>{label}</h4>
+      </div>
+      <label className={`custom-select-input-label`}>
         <select
           className="custom-select-input"
           value={selected}
           onChange={onChange}
+          id={id}
+          name={name}
         >
           <option value="" disabled selected>
             {placeholder}
@@ -38,7 +44,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           ))}
         </select>
       </label>
-      {error && <p className="error-text">{error}</p>}
+      {error && <p className="custom-error-message">{error}</p>}
     </div>
   );
 };

@@ -66,7 +66,12 @@ main {
   @apply grow;
 }
 
-.error-text {
+/* COMMON IN INPUTS */
+.custom-error-message {
+  @apply text-error text-xs font-bold;
+}
+
+.custom-error-label {
   @apply text-error;
 }
 
@@ -110,11 +115,11 @@ main {
   @apply flex items-center flex-col justify-between text-secondary-content p-10 bg-secondary;
 }
 
-.custom-footer > section {
+.custom-footer>section {
   @apply flex items-center flex-col md:flex-row justify-between w-full;
 }
 
-.custom-footer > section > nav {
+.custom-footer>section>nav {
   @apply flex items-start flex-col justify-between;
 }
 

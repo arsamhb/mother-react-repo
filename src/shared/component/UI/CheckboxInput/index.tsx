@@ -5,6 +5,8 @@ interface CheckboxInputProps {
   isChecked: boolean;
   onChange: (e: ChangeEvent<any>) => void;
   error?: string | undefined;
+  id: string;
+  name: string;
 }
 
 const CheckboxInput: React.FC<CheckboxInputProps> = ({
@@ -12,19 +14,23 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
   isChecked,
   onChange,
   error,
+  id,
+  name,
 }) => {
   return (
     <div>
-      <label className="custom-checkbox-input-label">
-        <h4 className=" custom-checkbox-input-label-text">{label}</h4>
+      <label className={`custom-checkbox-input-label`}>
+        <h4 className={`custom-checkbox-input-label-text ${error && "custom-error-label"}`}>{label}</h4>
         <input
+          id={id}
+          name={name}
           type="checkbox"
           checked={isChecked}
           className="custom-checkbox-input"
           onChange={onChange}
         />
       </label>
-      {error && <p className="error-text">{error}</p>}
+      {error && <p className="custom-error-message">{error}</p>}
     </div>
   );
 };

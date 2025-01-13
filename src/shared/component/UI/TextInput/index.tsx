@@ -7,6 +7,8 @@ interface TextInputProps {
   onChange: (e: ChangeEvent<any>) => void;
   placeholder: string;
   error?: string | undefined;
+  id: string;
+  name: string;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -16,14 +18,24 @@ const TextInput: React.FC<TextInputProps> = ({
   value,
   placeholder,
   error,
+  id,
+  name,
 }) => {
   return (
     <div>
-      <label className="custom-text-input-label">
-        <div className="label">
-          <h4 className="custom-select-input-label-text">{label}</h4>
-        </div>
+      <div className="label">
+        <h4
+          className={`custom-select-input-label-text ${
+            error && "custom-error-label"
+          }`}
+        >
+          {label}
+        </h4>
+      </div>
+      <label className={`custom-text-input-label`}>
         <input
+          id={id}
+          name={name}
           type={type}
           className="custom-text-input"
           placeholder={placeholder}
@@ -31,7 +43,7 @@ const TextInput: React.FC<TextInputProps> = ({
           onChange={onChange}
         />
       </label>
-      {error && <p className="error-text">{error}</p>}
+      {error && <p className="custom-error-message">{error}</p>}
     </div>
   );
 };
