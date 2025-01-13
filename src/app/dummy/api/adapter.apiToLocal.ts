@@ -1,4 +1,4 @@
-import { ILocalDummyFormResult } from "@/features/dummy/types/schema.type";
+import { ILocalDummyFormResult } from "@/app/dummy/types/schema.type";
 
 // ADAPTERS FOR API TO LOCAL
 const apiDummy2localDummy = (

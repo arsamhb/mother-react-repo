@@ -1,33 +1,35 @@
-import React from "react";
+import React, { ChangeEvent, HTMLInputTypeAttribute } from "react";
 
 interface TextInputProps {
-  value: string;
-  type: "password" | "number" | "text" | "email";
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  value: string | number;
+  label: string;
+  type: HTMLInputTypeAttribute;
+  onChange: (e: ChangeEvent<any>) => void;
   placeholder: string;
-  children?: React.ReactNode;
   error?: string | undefined;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
-  setValue,
+  label,
+  onChange,
   type,
   value,
   placeholder,
-  children,
   error,
 }) => {
   return (
     <div>
       <label className="custom-text-input-label">
+        <div className="label">
+          <h4 className="custom-select-input-label-text">{label}</h4>
+        </div>
         <input
           type={type}
           className="custom-text-input"
           placeholder={placeholder}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={onChange}
         />
-        {children}
       </label>
       {error && <p className="error-text">{error}</p>}
     </div>

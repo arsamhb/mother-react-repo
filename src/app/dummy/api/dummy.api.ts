@@ -7,7 +7,7 @@ import { apiDummy2localDummy } from "./adapter.apiToLocal";
 import {
   ILocalDummyFormResult,
   ILocalDummyFormToSend,
-} from "@/features/dummy/types/schema.type";
+} from "@/app/dummy/types/schema.type";
 
 // DUMMY GET
 const useGetDummy = () => useQuery({

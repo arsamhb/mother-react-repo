@@ -1,11 +1,11 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 interface SelectInputProps {
   label: string;
   placeholder: string;
   options: Array<{ key: string; value: string }>;
   selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (e: ChangeEvent<any>) => void;
   error?: string | undefined;
 }
 
@@ -14,19 +14,19 @@ const SelectInput: React.FC<SelectInputProps> = ({
   options,
   placeholder,
   selected,
-  setSelected,
+  onChange,
   error,
 }) => {
   return (
     <div>
       <label className="custom-select-input-label">
         <div className="label">
-          <span className="custom-select-input-label-text">{label}</span>
+          <h4 className="custom-select-input-label-text">{label}</h4>
         </div>
         <select
           className="custom-select-input"
           value={selected}
-          onChange={(e) => setSelected(e.target.value)}
+          onChange={onChange}
         >
           <option value="" disabled selected>
             {placeholder}

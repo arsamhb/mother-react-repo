@@ -1,27 +1,27 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 interface CheckboxInputProps {
   label: string;
   isChecked: boolean;
-  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  onChange: (e: ChangeEvent<any>) => void;
   error?: string | undefined;
 }
 
 const CheckboxInput: React.FC<CheckboxInputProps> = ({
   label,
   isChecked,
-  setIsChecked,
+  onChange,
   error,
 }) => {
   return (
     <div>
       <label className="custom-checkbox-input-label">
-        <span className=" custom-checkbox-input-label-text">{label}</span>
+        <h4 className=" custom-checkbox-input-label-text">{label}</h4>
         <input
           type="checkbox"
           checked={isChecked}
           className="custom-checkbox-input"
-          onChange={(e) => setIsChecked(e.target.checked)}
+          onChange={onChange}
         />
       </label>
       {error && <p className="error-text">{error}</p>}
