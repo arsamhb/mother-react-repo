@@ -80,6 +80,19 @@ main {
   @apply relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg;
 }
 
+.custom-modal.sm {
+  @apply w-[480px];
+}
+
+.custom-modal.md {
+  @apply w-[640px];
+}
+
+.custom-modal.lg {
+  @apply w-[900px];
+}
+
+
 .custom-modal-box {
   @apply pt-2;
 }

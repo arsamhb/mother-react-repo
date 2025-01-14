@@ -6,6 +6,7 @@ interface ModalWrapperProps {
   children: React.ReactNode;
   buttonTitle: string;
   buttonVariant: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const ModalWrapper: React.FC<ModalWrapperProps> = ({
@@ -13,6 +14,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
   children,
   buttonVariant = 'primary',
   buttonTitle,
+  size,
 }) => {
   const closeModal = () => {
     const elem = document.getElementById(modalId) as HTMLDialogElement;
@@ -31,7 +33,7 @@ const ModalWrapper: React.FC<ModalWrapperProps> = ({
       <Button variant={buttonVariant} onClick={openModal}>
         {buttonTitle}
       </Button>
-      <dialog id={modalId} className="custom-modal">
+      <dialog id={modalId} className={`custom-modal ${size || 'md'}`}>
         <button onClick={closeModal} className="custom-modal-close-btn">
           ✕
         </button>
