@@ -115,11 +115,11 @@ main {
   @apply flex items-center flex-col justify-between text-secondary-content p-10 bg-secondary;
 }
 
-.custom-footer > section {
+.custom-footer>section {
   @apply flex items-center flex-col md:flex-row justify-between w-full;
 }
 
-.custom-footer > section > nav {
+.custom-footer>section>nav {
   @apply flex items-start flex-col justify-between;
 }
 
@@ -143,4 +143,21 @@ main {
 
 .custom-skeleton-line {
   @apply skeleton h-4;
+}
+
+/* Toastify Styling */
+.Toastify__toast.Toastify__toast--error {
+  @apply bg-error text-error-content
+}
+
+.Toastify__toast.Toastify__toast--warning {
+  @apply bg-warning text-warning-content
+}
+
+.Toastify__toast.Toastify__toast--info {
+  @apply bg-info text-info-content
+}
+
+.Toastify__toast.Toastify__toast--success {
+  @apply bg-success text-success-content
 }

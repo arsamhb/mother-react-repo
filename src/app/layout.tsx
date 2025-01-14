@@ -1,9 +1,9 @@
 // import localFont from 'next/font/local';
 import type { Metadata } from 'next';
 import '@/globals.css';
-import Navbar from '@/shared/component/layout/Navbar';
-import Footer from '@/shared/component/layout/Footer';
-import SidebarWrapper from '@/shared/component/layout/SidebarWrapper';
+import Navbar from '@/shared/layout/Navbar';
+import Footer from '@/shared/layout/Footer';
+import SidebarWrapper from '@/shared/layout/SidebarWrapper';
 import QueryProvider from '@/lib/QueryProvider';
 
 export const metadata: Metadata = {

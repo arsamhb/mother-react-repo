@@ -1,5 +1,5 @@
 import React from 'react';
-import { INavbarGroup, INavbarItem } from '@/shared/component/layout/Navbar/navbar.interface';
+import { INavbarGroup, INavbarItem } from '@/shared/layout/Navbar/navbar.interface';
 import Link from 'next/link';
 import logoAddress from '@public/img/logo/logo.svg';
 import Image from 'next/image';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@/shared/component/UI/Button';
+import Button from '@/shared/UI/Button';
 
 interface ModalWrapperProps {
   modalId: string;
