@@ -1,15 +1,5 @@
-import React, { ChangeEvent } from 'react';
-
-interface SelectInputProps {
-  label: string;
-  placeholder: string;
-  options: Array<{ key: string; value: string }>;
-  value: string;
-  onChange: (e: ChangeEvent<Element>) => void;
-  error?: string | undefined;
-  id: string;
-  name: string;
-}
+import React from 'react';
+import { SelectInputProps } from './selectInput.interface';
 
 const SelectInput: React.FC<SelectInputProps> = ({
   label,

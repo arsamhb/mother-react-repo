@@ -6,7 +6,7 @@ export const UNKNOWN_ERROR = {
 };
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL ?? 'www.example.com/api',
+  baseURL: process.env.NEXT_PUBLIC_REACT_APP_BASE_URL ?? 'www.example.com/api',
   timeout: 5000,
 });
 

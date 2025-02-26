@@ -1,12 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
-import { IFooterGroup } from './footer.interface';
 import Link from 'next/link';
 import logoAddress from '@public/img/logo/logo.svg';
-
-interface FooterProps {
-  linkGroups: Array<IFooterGroup>;
-}
+import { FooterProps } from './footer.interface';
 
 const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
   return (

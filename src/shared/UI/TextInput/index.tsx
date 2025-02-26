@@ -1,15 +1,5 @@
-import React, { ChangeEvent, HTMLInputTypeAttribute } from 'react';
-
-interface TextInputProps {
-  value: string | number;
-  label: string;
-  type: HTMLInputTypeAttribute;
-  onChange: (e: ChangeEvent<Element>) => void;
-  placeholder: string;
-  error?: string | undefined;
-  id: string;
-  name: string;
-}
+import React from 'react';
+import { TextInputProps } from './testInput.interface';
 
 const TextInput: React.FC<TextInputProps> = ({
   label,

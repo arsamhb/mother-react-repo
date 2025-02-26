@@ -1,12 +1,7 @@
 'use client';
 
 import React from 'react';
-
-interface SkeletonProps {
-  shape: 'circle' | 'rectangle' | 'line';
-  widthRem: number;
-  heightRem: number;
-}
+import { SkeletonProps } from './skeleton.interface';
 
 const Skeleton: React.FC<SkeletonProps> = ({ shape, heightRem, widthRem }) => {
   if (shape === 'circle')

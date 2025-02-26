@@ -11,8 +11,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --no-warn-ignored",
-      "prettier --write"
+      "build next build",
+      "lint eslint . --fix --no-warn-ignored"
     ]
   },
   "dependencies": {

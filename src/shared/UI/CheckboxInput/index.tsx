@@ -1,13 +1,5 @@
-import React, { ChangeEvent } from 'react';
-
-interface CheckboxInputProps {
-  label: string;
-  isChecked: boolean;
-  onChange: (e: ChangeEvent<Element>) => void;
-  error?: string | undefined;
-  id: string;
-  name: string;
-}
+import React from 'react';
+import { CheckboxInputProps } from './checkBoxInput.interface';
 
 const CheckboxInput: React.FC<CheckboxInputProps> = ({
   label,
