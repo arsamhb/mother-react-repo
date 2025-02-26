@@ -10,6 +10,16 @@ const instance = axios.create({
   timeout: 5000,
 });
 
+// THIS PART HANDLES ONLY accessToken
+// import { tokenPersister } from './persisters/tokenPersister';
+// instance.interceptors.request.use((config) => {
+//   const token = tokenPersister.get();
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
+
 const post = <T, O>(
   url: string,
   local2api: (local: T) => any = (local: T) => local,
