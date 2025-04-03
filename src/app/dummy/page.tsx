@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import { dummyFromInitialValues } from './_service/schema';
 import { DummyFormValidationSchema } from './_service/validation';
 import { useMutation } from '@tanstack/react-query';
-import { IDummyFormSchema } from './_service/type.schema';
+import { IDummyFormSchema } from './_service/interface.schema';
 import api from '@/lib/axiosInstance';
 import { DUMMY_ROUTE } from './_service/route.api';
 import Button from '@/shared/UI/Button';

@@ -1,9 +1,7 @@
-import { IDummyFormSchema } from './type.schema';
+import { IDummyFormSchema } from './interface.schema';
 
-const dummyFromInitialValues: IDummyFormSchema = {
+export const dummyFromInitialValues: IDummyFormSchema = {
   checkbox: false,
   select: '',
   text: '',
 };
-
-export { dummyFromInitialValues };
