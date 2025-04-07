@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/axiosInstance';
 // import { AUTH_TOKEN_VERIFY_ROUTE } from '@/app/auth/_service/route.api';
-import authService from '@/lib/auth/authService';
+import { useAuth } from '@/context/AuthContext';
 
 export interface CustomErrorResponseSchema {
   message: string;
@@ -15,24 +15,10 @@ export interface CustomErrorResponseSchema {
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
   return function ComponentWithAuth(props: any) {
     const router = useRouter();
-    const [loading, setLoading] = useState(true);
-    const [token, setToken] = useState<string | null>(null);
-
-    // Subscribe to token changes
-    useEffect(() => {
-      setToken(authService.getToken());
-
-      const handleTokenChange = (newToken: string | null) => {
-        setToken(newToken);
-      };
-
-      authService.subscribe(handleTokenChange);
-      return () => authService.unsubscribe(handleTokenChange);
-    }, []);
-
-    // CHANGE THIS ROUTE WITH SOMETHING RELATED AND REMOVE THE LINE BELOW
+    const { token, initializing, logout } = useAuth();
+    // CHANGE IT LATER
     const AUTH_TOKEN_VERIFY_ROUTE = '';
-    const { error, isError } = useQuery<any, CustomErrorResponseSchema>({
+    const { error } = useQuery<any, CustomErrorResponseSchema>({
       queryKey: ['tokenCheck'],
       queryFn: () => api.post(AUTH_TOKEN_VERIFY_ROUTE),
       enabled: !!token,
@@ -40,19 +26,17 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
 
     useEffect(() => {
       if (error?.statusCode === 401) {
-        authService.deleteToken();
+        logout();
       }
-    }, [error, isError]);
+    }, [error, logout]);
 
     useEffect(() => {
-      if (!token) {
+      if (!initializing && !token) {
         router.push('/');
-      } else {
-        setLoading(false);
       }
-    }, [token, router]);
+    }, [token, initializing, router]);
 
-    if (loading) {
+    if (initializing) {
       return (
         <div className="flex flex-col gap-lg m-auto items-center">
           <h3 className="text-2xl">در حال بارگذاری محتوا</h3>
