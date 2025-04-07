@@ -24,6 +24,25 @@ const eslintConfig = [
   {
     rules: {
       'prettier/prettier': ['error', { endOfLine: 'lf' }],
+      '@typescript-eslint/ban-ts-comment': [
+        'warn',
+        {
+          'ts-ignore': false,
+          'ts-expect-error': true,
+          'ts-nocheck': true,
+          'ts-check': false,
+        },
+      ],
+    },
+  },
+  {
+    files: [
+      'src/hoc/**',
+      'src/app/question/createByWord/_components/CreateQuestionByWordFile.tsx',
+      'src/shared/UI/FileInput/index.tsx',
+    ],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off', // Disables "any" issue in this directory only
     },
   },
 ];

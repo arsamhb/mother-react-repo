@@ -1,6 +1,6 @@
 'use client';
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { tokenPersister } from '@/lib/persisters/tokenPersister';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import authService from '@/lib/auth/authService';
 
 interface IAuthContextType {
   isAuthenticated: boolean;
@@ -17,30 +17,35 @@ const AuthContext = createContext<IAuthContextType>({
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(authService.getToken());
 
   useEffect(() => {
-    const storedToken = tokenPersister.get();
-    if (storedToken) {
-      setToken(storedToken);
-    }
+    const handleAuthChange = (newToken: string | null) => {
+      setToken(newToken);
+    };
+    authService.subscribe(handleAuthChange);
+    return () => authService.unsubscribe(handleAuthChange);
   }, []);
 
-  const login = (token: string) => {
-    tokenPersister.set(token);
-    setToken(token);
+  const login = (newToken: string) => {
+    authService.setToken(newToken);
   };
 
   const logout = () => {
-    tokenPersister.delete();
-    setToken(null);
+    authService.deleteToken();
   };
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated: !!token, token, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+  const authValue = useMemo(
+    () => ({
+      isAuthenticated: !!token,
+      token,
+      login,
+      logout,
+    }),
+    [token]
   );
+
+  return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

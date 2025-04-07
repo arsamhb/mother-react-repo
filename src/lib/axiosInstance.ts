@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import authService from './auth/authService';
 
 export const UNKNOWN_ERROR = {
   message: 'خطایی رخ داده است.',
@@ -19,6 +20,17 @@ const instance = axios.create({
 //   }
 //   return config;
 // });
+
+// THIS INTERCEPTOR ACTS AS THE IMMEDIATE GUARD AGAINST NON-AUTHORIZED USERS
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      authService.deleteToken();
+    }
+    return Promise.reject(error);
+  }
+);
 
 const post = <T, O>(
   url: string,
