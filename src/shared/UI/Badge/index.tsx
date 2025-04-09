@@ -1,5 +1,9 @@
 import React from 'react';
-import { BadgeProps } from './badge.interface';
+
+export interface BadgeProps {
+  type: 'primary' | 'secondary';
+  children: React.ReactNode;
+}
 
 const Badge: React.FC<BadgeProps> = ({ children, type }) => {
   const customStyling =

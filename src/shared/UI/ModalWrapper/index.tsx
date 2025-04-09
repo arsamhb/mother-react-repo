@@ -1,6 +1,13 @@
 import React from 'react';
 import Button from '@/shared/UI/Button';
-import { ModalWrapperProps } from './modalWrapper.interface';
+
+export interface ModalWrapperProps {
+  modalId: string;
+  children: React.ReactNode;
+  buttonTitle: string;
+  buttonVariant: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+}
 
 const ModalWrapper: React.FC<ModalWrapperProps> = ({
   modalId,

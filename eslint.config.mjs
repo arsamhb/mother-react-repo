@@ -33,6 +33,7 @@ const eslintConfig = [
           'ts-check': false,
         },
       ],
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
   {

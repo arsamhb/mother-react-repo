@@ -3,16 +3,23 @@ class AuthService {
 
   private subscribers: Array<(token: string | null) => void> = [];
 
+  private isClient(): boolean {
+    return typeof window !== 'undefined';
+  }
+
   getToken(): string | null {
+    if (!this.isClient()) return null;
     return localStorage.getItem(this.tokenKey);
   }
 
   setToken(token: string): void {
+    if (!this.isClient()) return;
     localStorage.setItem(this.tokenKey, token);
     this.notify(token);
   }
 
   deleteToken(): void {
+    if (!this.isClient()) return;
     localStorage.removeItem(this.tokenKey);
     this.notify(null);
   }

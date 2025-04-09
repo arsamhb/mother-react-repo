@@ -1,9 +1,13 @@
 import React from 'react';
-import { IAccordionContent } from './accordion.interface';
 
 interface AccordionProps {
   accordionName: string;
   accordionsContent: Array<IAccordionContent>;
+}
+
+export interface IAccordionContent {
+  title: string;
+  description: string;
 }
 
 const Accordion: React.FC<AccordionProps> = ({ accordionsContent, accordionName }) => {

@@ -1,16 +1,19 @@
-'use client';
-
 import React from 'react';
-import { SkeletonProps } from './skeleton.interface';
+import { SkeletonWrapperProps } from './skeleton.interface';
+import Skeleton from './Skeleton';
 
-const Skeleton: React.FC<SkeletonProps> = ({ shape, heightRem, widthRem }) => {
-  if (shape === 'circle')
-    return <div className={`custom-skeleton-${shape} h-${heightRem * 4} w-${widthRem * 4}`}></div>;
+const SkeletonWrapper: React.FC<SkeletonWrapperProps> = ({
+  isLoading,
+  children,
+  widthRem,
+  heightRem,
+  shape,
+}) => {
+  if (isLoading) {
+    return <Skeleton widthRem={widthRem} heightRem={heightRem} shape={shape} />;
+  }
 
-  if (shape === 'line') return <div className={`custom-skeleton-${shape} w-${widthRem * 4}`}></div>;
-
-  if (shape === 'rectangle')
-    return <div className={`custom-skeleton-${shape} h-${heightRem * 4} w-${widthRem * 4}`}></div>;
+  return <>{children}</>;
 };
 
-export default Skeleton;
+export default SkeletonWrapper;
