@@ -1,6 +1,8 @@
 'use client';
+
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import authService from '@/lib/auth/authService';
+import authService from '@/lib/auth/authService_ACCESS_TOKEN_ONLY';
+import api from '@/lib/axiosInstance';
 
 interface IAuthContextType {
   isAuthenticated: boolean;
@@ -19,22 +21,8 @@ const AuthContext = createContext<IAuthContextType>({
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(authService.getToken());
+  const [token, setToken] = useState<string | null>(null);
   const [initializing, setInitializing] = useState(true);
-
-  useEffect(() => {
-    const handleAuthChange = (newToken: string | null) => {
-      setToken(newToken);
-      setInitializing(false);
-    };
-
-    if (authService.getToken()) {
-      setInitializing(false);
-    }
-
-    authService.subscribe(handleAuthChange);
-    return () => authService.unsubscribe(handleAuthChange);
-  }, []);
 
   const login = (newToken: string) => {
     authService.setToken(newToken);
@@ -43,6 +31,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     authService.deleteToken();
   };
+
+  // SET UP THE LOGIC BETWEEN AUTH CONTEXT AND AUTH SERVICE
+  useEffect(() => {
+    const savedToken = authService.getToken();
+    setToken(savedToken);
+    setInitializing(false);
+
+    const handleAuthChange = (newToken: string | null) => {
+      setToken(newToken);
+    };
+
+    authService.subscribe(handleAuthChange);
+    return () => authService.unsubscribe(handleAuthChange);
+  }, []);
+
+  // TO CHECK THE VALIDITY OF THE TOKEN ON APPLICATION INITIALIZATION
+  useEffect(() => {
+    if (authService.getToken()) {
+      const checkTokenOnAppInit = api.post('SOME_ROUTE_TO_BE_IMPORTED');
+      checkTokenOnAppInit({}).catch((err) => {
+        if (err.statusCode === 401) {
+          logout();
+        }
+      });
+    }
+  }, []);
+
+  // SET UP THE EVENT LISTENER FOR UNAUTHORIZED RESPONSES
+  useEffect(() => {
+    function handleAuthError() {
+      logout();
+    }
+
+    window.addEventListener('auth:error', handleAuthError);
+    return () => {
+      window.removeEventListener('auth:error', handleAuthError);
+    };
+  }, [logout]);
 
   const authValue = useMemo(
     () => ({

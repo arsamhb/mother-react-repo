@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import authService from './auth/authService';
+import authService from './auth/authService_ACCESS_TOKEN_ONLY';
 
 export const UNKNOWN_ERROR = {
   message: 'خطایی رخ داده است.',
@@ -11,22 +11,19 @@ const instance = axios.create({
   timeout: 5000,
 });
 
-// THIS PART HANDLES ONLY accessToken
-// import { tokenPersister } from './persisters/tokenPersister';
-// instance.interceptors.request.use((config) => {
-//   const token = tokenPersister.get();
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
+instance.interceptors.request.use((config) => {
+  const token = authService.getToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-// THIS INTERCEPTOR ACTS AS THE IMMEDIATE GUARD AGAINST NON-AUTHORIZED USERS
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      authService.deleteToken();
+      window.dispatchEvent(new Event('auth:error'));
     }
     return Promise.reject(error);
   }

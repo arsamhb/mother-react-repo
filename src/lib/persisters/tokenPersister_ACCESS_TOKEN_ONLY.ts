@@ -1,3 +1,5 @@
+'use client';
+
 import LocalStoragePersister from '.';
 
 export const tokenPersister = new LocalStoragePersister(

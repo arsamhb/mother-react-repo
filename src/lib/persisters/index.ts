@@ -1,3 +1,5 @@
+'use client';
+
 class LocalStoragePersister {
   private _key: string;
   constructor(key: string) {
