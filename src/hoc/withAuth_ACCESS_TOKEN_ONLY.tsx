@@ -27,7 +27,8 @@ const withAuth = (options?: WithAuthOptions) => {
         queryKey: ['authTokenCheck'],
         queryFn: api.post('SOME_ROUTE_TO_BE_IMPORTED'),
         enabled: !!token && !initializing,
-        refetchOnMount: true,
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
       });
 
       useEffect(() => {
