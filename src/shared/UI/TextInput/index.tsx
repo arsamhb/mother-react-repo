@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
@@ -22,12 +23,14 @@ const TextInput: React.FC<TextInputProps> = ({
   id,
   name,
 }) => {
+  const labelTitleClassName = clsx('custom-select-input-label-text', {
+    'custom-error-label': error,
+  });
+
   return (
     <div>
       <div className="label">
-        <h4 className={`custom-select-input-label-text ${error && 'custom-error-label'}`}>
-          {label}
-        </h4>
+        <h4 className={labelTitleClassName}>{label}</h4>
       </div>
       <label className={`custom-text-input-label`}>
         <input

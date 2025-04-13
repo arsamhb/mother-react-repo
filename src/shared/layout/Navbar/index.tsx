@@ -1,8 +1,22 @@
 import React from 'react';
-import { NavbarProps } from '@/shared/layout/Navbar/navbar.interface';
 import Link from 'next/link';
 import logoAddress from '@public/img/logo/logo.svg';
 import Image from 'next/image';
+
+export interface NavbarProps {
+  title: string;
+  items?: Array<INavbarItem | INavbarGroup>;
+}
+
+export interface INavbarItem {
+  title: string;
+  linkURL: string;
+}
+
+export interface INavbarGroup {
+  parent: string;
+  children: Array<INavbarItem>;
+}
 
 const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
   return (

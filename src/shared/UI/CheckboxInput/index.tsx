@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { ChangeEvent } from 'react';
 
@@ -18,12 +19,14 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
   id,
   name,
 }) => {
+  const labelTitleClassName = clsx('custom-checkbox-input-label-text', {
+    'custom-error-label': error,
+  });
+
   return (
     <div>
       <label className={`custom-checkbox-input-label`}>
-        <h4 className={`custom-checkbox-input-label-text ${error && 'custom-error-label'}`}>
-          {label}
-        </h4>
+        <h4 className={labelTitleClassName}>{label}</h4>
         <input
           id={id}
           name={name}
