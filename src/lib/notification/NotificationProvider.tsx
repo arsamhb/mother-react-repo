@@ -1,8 +1,11 @@
-import React from 'react';
-import { Slide, ToastContainer } from 'react-toastify';
+'use client';
 
-const ToastWrapper = () => {
-  return (
+import { Slide, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+export const NotificationProvider = ({ children }: { children: React.ReactNode }) => (
+  <>
+    {children}
     <ToastContainer
       position="bottom-left"
       autoClose={5000}
@@ -10,14 +13,12 @@ const ToastWrapper = () => {
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
-      //   rtl
+      rtl
       pauseOnFocusLoss={false}
       draggable={false}
       pauseOnHover
       theme="colored"
       transition={Slide}
     />
-  );
-};
-
-export default ToastWrapper;
+  </>
+);

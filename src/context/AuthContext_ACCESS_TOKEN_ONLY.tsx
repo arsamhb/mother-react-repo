@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import authService from '@/lib/auth/authService_ACCESS_TOKEN_ONLY';
 import api from '@/lib/axiosInstance';
 
-interface IAuthContextType {
+interface IAuthContext {
   isAuthenticated: boolean;
   token: string | null;
   initializing: boolean;
@@ -12,7 +12,7 @@ interface IAuthContextType {
   logout: () => void;
 }
 
-const AuthContext = createContext<IAuthContextType>({
+const AuthContext = createContext<IAuthContext>({
   isAuthenticated: false,
   token: null,
   initializing: true,

@@ -11,18 +11,14 @@ import { IDummyFormSchema } from './_service/interface.schema';
 import api from '@/lib/axiosInstance';
 import { DUMMY_ROUTE } from './_service/route.api';
 import Button from '@/shared/UI/Button';
-import { toast } from 'react-toastify';
-import ToastWrapper from '@/shared/UI/ToastWrapper';
+import { notify } from '@/lib/notification/notificationService';
 
 const Dummy = () => {
   const usePostDummyForm = useMutation({
     mutationKey: ['postForm'],
     mutationFn: api.post<IDummyFormSchema, string>(DUMMY_ROUTE),
     onSuccess: () => {
-      toast.success('ON SUCCESS MESSAGE');
-    },
-    onError: () => {
-      toast.error('ON ERROR MESSAGE');
+      notify.success('ورود با موفقیت انجام شد.');
     },
   });
 
@@ -66,7 +62,6 @@ const Dummy = () => {
         />
         <Button>Submit</Button>
       </form>
-      <ToastWrapper />
     </>
   );
 };
