@@ -23,7 +23,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   id,
   name,
 }) => {
-  const labelTitleClassName = clsx('custom-select-input-label-text', {
+  const labelTitleClassName = clsx('custom-label-text', {
     'custom-error-label': error,
   });
 
@@ -32,9 +32,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
       <div className="label">
         <h4 className={labelTitleClassName}>{label}</h4>
       </div>
-      <label className={`custom-select-input-label`}>
+      <label className={`w-full max-w-xs`}>
         <select
-          className="custom-select-input"
+          className="select select-bordered"
           value={value}
           onChange={onChange}
           id={id}

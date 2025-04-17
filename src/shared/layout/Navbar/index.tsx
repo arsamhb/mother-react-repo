@@ -20,8 +20,8 @@ export interface INavbarGroup {
 
 const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
   return (
-    <nav className="custom-navbar">
-      <div className="custom-navbar-start">
+    <nav className="navbar bg-accent text-accent-content">
+      <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -73,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
           <Image src={logoAddress} width={25} height={25} alt="the-business-logo" />
         </Link>
       </div>
-      <div className="custom-navbar-end">
+      <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           {items &&
             items.map((item, index) => {

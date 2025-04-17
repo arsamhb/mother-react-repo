@@ -19,20 +19,20 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
   id,
   name,
 }) => {
-  const labelTitleClassName = clsx('custom-checkbox-input-label-text', {
+  const labelTitleClassName = clsx('label-text', {
     'custom-error-label': error,
   });
 
   return (
     <div>
-      <label className={`custom-checkbox-input-label`}>
+      <label className={`custom-label-text`}>
         <h4 className={labelTitleClassName}>{label}</h4>
         <input
           id={id}
           name={name}
           type="checkbox"
           checked={isChecked}
-          className="custom-checkbox-input"
+          className="checkbox checkbox-primary border-2"
           onChange={onChange}
         />
       </label>

@@ -1,5 +1,4 @@
 'use client';
-// import { usePostDummyForm } from "@/app/dummy/_composable/api/dummy.api";
 import CheckboxInput from '@/shared/UI/CheckboxInput';
 import SelectInput from '@/shared/UI/SelectInput';
 import TextInput from '@/shared/UI/TextInput';

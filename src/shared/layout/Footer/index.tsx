@@ -19,8 +19,8 @@ export interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
   return (
-    <footer className="custom-footer">
-      <section>
+    <footer className="flex items-center flex-col justify-between text-secondary-content p-10 bg-secondary">
+      <section className="flex items-center flex-col md:flex-row justify-between w-full">
         <aside>
           <Image src={logoAddress} width={100} height={100} alt="the-business-logo" />
           <p>
@@ -31,8 +31,8 @@ const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
         </aside>
         {linkGroups.map((item, i) => {
           return (
-            <nav key={i}>
-              <h6 className="custom-footer-title">{item.title}</h6>
+            <nav className="flex items-start flex-col justify-between" key={i}>
+              <h6 className="footer-title">{item.title}</h6>
               {item.links.map((link, idx) => {
                 return (
                   <Link href={link.url} key={idx} className="link link-hover">

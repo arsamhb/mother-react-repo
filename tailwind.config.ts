@@ -37,20 +37,13 @@ export default {
   },
   theme: {
     extend: {
-      padding: {
-        sm: '0.5rem',
-        md: '1rem',
-        lg: '2rem',
-      },
-      margin: {
-        sm: '0.5rem',
-        md: '1rem',
-        lg: '2rem',
-      },
       spacing: {
         sm: '0.5rem',
         md: '1rem',
         lg: '2rem',
+        'standard-phone': '1rem',
+        'standard-tablet': '3rem',
+        'standard-laptop': '7rem',
       },
       borderRadius: {
         sm: '1px',
@@ -62,7 +55,21 @@ export default {
         md: '3px',
         lg: '5px',
       },
-      fontSize: {},
+      screens: {
+        phone: '480px',
+        tablet: '768px',
+        laptop: '1024px',
+        desktop: '1280px',
+      },
+      fontSize: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        base: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        heading: ['2rem', { lineHeight: '2.5rem' }],
+      },
     },
   },
   plugins: [daisyui],

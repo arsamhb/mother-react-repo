@@ -16,8 +16,8 @@ const Accordion: React.FC<AccordionProps> = ({ accordionsContent, accordionName 
       {accordionsContent.map((item: IAccordionContent, index: number) => (
         <div className="collapse bg-base-200" key={index}>
           <input type="radio" name={accordionName} defaultChecked={index === 0} />
-          <div className="custom-accordion-title text-xl font-medium">{item.title}</div>
-          <div className="custom-accordion-content">
+          <div className="bg-primary p-2 rounded-t-lg text-xl font-medium">{item.title}</div>
+          <div className="bg-primary-content rounded-b-lg">
             <p>{item.description}</p>
           </div>
         </div>

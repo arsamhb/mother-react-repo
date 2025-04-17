@@ -22,51 +22,18 @@ main {
   @apply flex flex-grow;
 }
 
-/* Button */
-.custom-button-primary {
-  @apply btn btn-primary;
-}
+/* ALL SHADOWS */
 
-.custom-button-secondary {
-  @apply btn btn-secondary;
-}
-
-/* CheckboxInput */
-.custom-checkbox-input {
-  @apply checkbox checkbox-primary border-2;
-}
-
-.custom-checkbox-input-label {
-  @apply cursor-pointer label;
-}
-
-.custom-checkbox-input-label-text {
-  @apply label-text;
-}
-
-/* SelectInput */
-.custom-select-input-label {
-  @apply w-full max-w-xs;
-}
-
-.custom-select-input-label-text {
-  @apply label-text;
-}
-
-.custom-select-input {
-  @apply select select-bordered;
-}
-
-/* TextInput */
-.custom-text-input-label {
-  @apply input input-bordered flex items-center gap-2;
-}
-
-.custom-text-input {
-  @apply grow;
+/* GLOBAL STANDARD SPACING PADDING AND MARGIN */
+.standard-horizontal-padding {
+  @apply px-standard-phone md:px-standard-tablet lg:px-standard-laptop;
 }
 
 /* COMMON IN INPUTS */
+.custom-label-text {
+  @apply text-primary-content cursor-pointer label;
+}
+
 .custom-error-message {
   @apply text-error text-xs font-bold;
 }
@@ -75,102 +42,19 @@ main {
   @apply text-error;
 }
 
-/* ModalWrapper */
-.custom-modal {
-  @apply relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg;
-}
-
-.custom-modal.sm {
-  @apply w-[480px];
-}
-
-.custom-modal.md {
-  @apply w-[640px];
-}
-
-.custom-modal.lg {
-  @apply w-[900px];
-}
-
-
-.custom-modal-box {
-  @apply pt-2;
-}
-
-.custom-modal-close-btn {
-  @apply absolute top-2 left-4;
-}
-
-/* Accordion */
-.custom-accordion-title {
-  @apply bg-primary p-2 rounded-t-lg;
-}
-
-.custom-accordion-content {
-  @apply bg-primary-content rounded-b-lg;
-}
-
-/* Navbar */
-.custom-navbar {
-  @apply navbar bg-accent text-accent-content;
-}
-
-.custom-navbar-start {
-  @apply navbar-start;
-}
-
-.custom-navbar-end {
-  @apply navbar-end hidden lg:flex;
-}
-
-/* Footer */
-.custom-footer {
-  @apply flex items-center flex-col justify-between text-secondary-content p-10 bg-secondary;
-}
-
-.custom-footer>section {
-  @apply flex items-center flex-col md:flex-row justify-between w-full;
-}
-
-.custom-footer>section>nav {
-  @apply flex items-start flex-col justify-between;
-}
-
-.custom-footer-title {
-  @apply footer-title;
-}
-
-/* SidebarWrapper */
-.custom-sidebar-styling {
-  @apply flex flex-col w-60 text-primary-content bg-primary;
-}
-
-/* Skeleton */
-.custom-skeleton-circle {
-  @apply skeleton shrink-0 rounded-full;
-}
-
-.custom-skeleton-rectangle {
-  @apply skeleton;
-}
-
-.custom-skeleton-line {
-  @apply skeleton h-4;
-}
-
 /* Toastify Styling */
 .Toastify__toast.Toastify__toast--error {
-  @apply bg-error text-error-content
+  @apply bg-error text-error-content;
 }
 
 .Toastify__toast.Toastify__toast--warning {
-  @apply bg-warning text-warning-content
+  @apply bg-warning text-warning-content;
 }
 
 .Toastify__toast.Toastify__toast--info {
-  @apply bg-info text-info-content
+  @apply bg-info text-info-content;
 }
 
 .Toastify__toast.Toastify__toast--success {
-  @apply bg-success text-success-content
+  @apply bg-success text-success-content;
 }

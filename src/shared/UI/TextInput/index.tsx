@@ -23,7 +23,7 @@ const TextInput: React.FC<TextInputProps> = ({
   id,
   name,
 }) => {
-  const labelTitleClassName = clsx('custom-select-input-label-text', {
+  const labelTitleClassName = clsx('custom-label-text', {
     'custom-error-label': error,
   });
 
@@ -32,12 +32,12 @@ const TextInput: React.FC<TextInputProps> = ({
       <div className="label">
         <h4 className={labelTitleClassName}>{label}</h4>
       </div>
-      <label className={`custom-text-input-label`}>
+      <label className={`input input-bordered flex items-center gap-2`}>
         <input
           id={id}
           name={name}
           type={type}
-          className="custom-text-input"
+          className="grow"
           placeholder={placeholder}
           value={value}
           onChange={onChange}
