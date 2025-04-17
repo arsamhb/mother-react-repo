@@ -64,9 +64,9 @@ const get = <O>(url: string, api2local: (api: any) => O = (api) => api, queryPar
 };
 
 const _delete = <T>(url: string) => {
-  return async (queryParams: T) => {
+  return async () => {
     try {
-      const response = await instance.delete(url, { params: queryParams });
+      const response = await instance.delete(url);
       return response.data;
     } catch (e) {
       const error = e as AxiosError;
