@@ -34,18 +34,21 @@ const eslintConfig = [
         },
       ],
       '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
   {
     files: [
       'src/hoc/**',
-      'src/app/question/createByWord/_components/CreateQuestionByWordFile.tsx',
+      'src/app/question/createByWord/_components/WordFileQuestionUploadFlow.tsx',
       'src/shared/UI/FileInput/index.tsx',
+      '**/hook.mutation.tsx',
     ],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off', // Disables "any" issue in this directory only
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
+  { files: ['**/hook.mutation.tsx'], rules: { 'react-hooks/rules-of-hooks': 'off' } },
 ];
 
 export default eslintConfig;

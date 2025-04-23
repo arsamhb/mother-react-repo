@@ -8,7 +8,7 @@ export const UNKNOWN_ERROR = {
 };
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_REACT_APP_BASE_URL ?? 'www.example.com/api',
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: 5000,
 });
 
@@ -63,7 +63,7 @@ const get = <O>(url: string, api2local: (api: any) => O = (api) => api, queryPar
   };
 };
 
-const _delete = <T>(url: string) => {
+const _delete = (url: string) => {
   return async () => {
     try {
       const response = await instance.delete(url);
@@ -91,11 +91,42 @@ const put = <T, O>(
   };
 };
 
+const patch = <T, O>(
+  url: string,
+  local2api: (local: T) => any = (local: T) => local,
+  api2local: (api: any) => O = (api: any) => api
+) => {
+  return async (body: T) => {
+    try {
+      const response = await instance.patch(url, local2api(body));
+      return api2local(response.data) as O;
+    } catch (e) {
+      const error = e as AxiosError;
+      return Promise.reject(error.response?.data ?? UNKNOWN_ERROR);
+    }
+  };
+};
+
+// THIS API METHOD HAS NO TIMEOUT
+const postFormData = <O>(url: string, api2local: (api: any) => O = (api: any) => api) => {
+  return async (formData: FormData): Promise<O> => {
+    try {
+      const response = await instance.post(url, formData, { timeout: 0 });
+      return api2local(response.data) as O;
+    } catch (e) {
+      const error = e as AxiosError;
+      return Promise.reject(error.response?.data ?? UNKNOWN_ERROR);
+    }
+  };
+};
+
 const api = {
   get,
   post,
+  patch,
   delete: _delete,
   put,
+  postFormData,
 };
 
 export default api;
