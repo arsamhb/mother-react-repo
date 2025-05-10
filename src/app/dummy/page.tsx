@@ -55,7 +55,7 @@ const Dummy = () => {
           id="checkbox"
           name="checkbox"
           label={'LABEL'}
-          isChecked={formik.values.checkbox}
+          checked={formik.values.checkbox}
           onChange={formik.handleChange}
           error={formik.errors.checkbox}
         />

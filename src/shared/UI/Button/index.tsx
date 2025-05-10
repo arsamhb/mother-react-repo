@@ -1,30 +1,34 @@
 import clsx from 'clsx';
 import React from 'react';
 
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
-  children: React.ReactNode;
-  onClick?: () => void;
-  loading?: boolean;
-  disabled?: boolean;
+  isLoading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  onClick,
-  children,
   variant = 'primary',
-  disabled = false,
-  loading = false,
+  isLoading = false,
+  disabled,
+  className,
+  children,
+  ...rest
 }) => {
-  const ButtonClassName = clsx('btn', {
-    'btn-disabled': loading || disabled,
-    'btn-primary': variant === 'primary' && !loading && !disabled,
-    'btn-secondary': variant === 'secondary' && !loading && !disabled,
-  });
+  const isDisabled = disabled || isLoading;
+
+  const buttonClassName = clsx(
+    'btn',
+    {
+      'btn-disabled': isDisabled,
+      'btn-primary': variant === 'primary' && !isDisabled,
+      'btn-secondary': variant === 'secondary' && !isDisabled,
+    },
+    className
+  );
 
   return (
-    <button disabled={disabled || loading} onClick={onClick} className={ButtonClassName}>
-      {loading ? <span className="loading loading-dots loading-sm"></span> : children}
+    <button {...rest} disabled={isDisabled} className={buttonClassName}>
+      {isLoading ? <span className="loading loading-dots loading-sm" /> : children}
     </button>
   );
 };
