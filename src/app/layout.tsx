@@ -28,7 +28,8 @@ export default function RootLayout({
   return (
     // ADD THIS CLASS TO HTML ELEMENT FOR ADDING THE FONT className={customFont.className}
     <html lang="en">
-      <body>
+      {/* THE DATA-THEME IS FOR THE EXTENDING DAISY UI THEME*/}
+      <body data-theme="mytheme">
         <QueryProvider>
           <AuthProvider>
             <UserProvider>

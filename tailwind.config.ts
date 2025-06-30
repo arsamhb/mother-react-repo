@@ -31,6 +31,8 @@ export default {
           'warning-content': '#150d00',
           error: '#e15154',
           'error-content': '#120202',
+          // EXTENDING TOKEN EXAMPLE
+          // '--gold': '#FFB219',
         },
       },
     ],
@@ -69,6 +71,10 @@ export default {
         xl: '1.25rem',
         '2xl': '1.5rem',
         heading: ['2rem', { lineHeight: '2.5rem' }],
+      },
+      colors: {
+        // EXTENDING TOKEN EXAMPLE
+        gold: 'var(--gold)',
       },
     },
   },
