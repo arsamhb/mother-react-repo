@@ -12,3 +12,5 @@ export interface IPaginationParams {
   page: number;
   limit: number;
 }
+
+export type Roles = 'ADMIN' | 'USER';

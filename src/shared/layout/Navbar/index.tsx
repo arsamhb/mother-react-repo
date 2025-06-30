@@ -1,108 +1,63 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import logoAddress from '@public/img/logo/logo.svg';
-import Image from 'next/image';
+import { useAuth } from '@/context/AuthContext_ACCESS_TOKEN_ONLY';
+import { NavList } from './NavList';
+import type { INavItem, INavGroup } from './interfaces';
+import Button from '@/shared/UI/Button';
+// import BackButton from '@/shared/UI/BackButton';
 
 export interface NavbarProps {
-  title: string;
-  items?: Array<INavbarItem | INavbarGroup>;
+  itemsLeft?: Array<INavItem | INavGroup>;
+  itemsRight?: Array<INavItem | INavGroup>;
+  title?: string;
 }
 
-export interface INavbarItem {
-  title: string;
-  linkURL: string;
-}
+const Navbar: React.FC<NavbarProps> = ({ itemsLeft = [], itemsRight = [], title }) => {
+  const { isAuthenticated, logout } = useAuth();
 
-export interface INavbarGroup {
-  parent: string;
-  children: Array<INavbarItem>;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ items, title }) => {
   return (
-    <nav className="navbar bg-accent text-accent-content">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            {items &&
-              items.map((item, index) => {
-                if ('parent' in item) {
-                  return (
-                    <div key={index}>
-                      <a>{item.parent}</a>
-                      <ul className="p-2">
-                        {item.children.map((child, childIndex) => (
-                          <li key={childIndex}>
-                            <Link href={child.linkURL}>{child.title}</Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <li key={index}>
-                      <Link href={item.linkURL}>{item.title}</Link>
-                    </li>
-                  );
-                }
-              })}
-          </ul>
-        </div>
-        <Link href={'/'} className="text-xl flex items-center">
+    <>
+      {/* Top bar */}
+      <div className="flex flex-row-reverse justify-between items-center text-primary-content bg-primary h-[42px] standard-horizontal-padding">
+        <Link href="/" className="text-xl flex items-center">
           {title}
-          <Image src={logoAddress} width={25} height={25} alt="the-business-logo" />
         </Link>
+        <div className="flex gap-2">
+          {/* <BackButton /> */}
+          {isAuthenticated ? (
+            <Button variant="primary" onClick={logout}>
+              خروج
+            </Button>
+          ) : (
+            <Button variant="primary">
+              <Link href="/auth">ورود</Link>
+            </Button>
+          )}
+        </div>
       </div>
-      <div className="navbar-end hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {items &&
-            items.map((item, index) => {
-              if ('parent' in item) {
-                return (
-                  <li key={index}>
-                    <details>
-                      <summary>{item.parent}</summary>
-                      <ul className="p-2">
-                        {item.children.map((child, childIndex) => (
-                          <li key={childIndex}>
-                            <Link href={child.linkURL}>{child.title}</Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-                  </li>
-                );
-              } else {
-                return (
-                  <li key={index}>
-                    <Link href={item.linkURL}>{item.title}</Link>
-                  </li>
-                );
-              }
-            })}
-        </ul>
-      </div>
-    </nav>
+
+      {/* Navbar */}
+      <nav className="navbar bg-secondary text-secondary-content standard-horizontal-padding">
+        {/* Mobile */}
+        <div className="navbar-start md:hidden">
+          <div className="dropdown">
+            {/* burger icon */}
+            <button />
+            <div className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <NavList items={itemsRight} wrapperClass="menu menu-sm" />
+              <NavList items={itemsLeft} wrapperClass="menu menu-sm" />
+            </div>
+          </div>
+        </div>
+        {/* Desktop */}
+        <div className="hidden md:flex justify-between w-full">
+          <NavList items={itemsRight} wrapperClass="menu menu-horizontal px-1" />
+          <NavList items={itemsLeft} wrapperClass="menu menu-horizontal px-1" />
+        </div>
+      </nav>
+    </>
   );
 };
 

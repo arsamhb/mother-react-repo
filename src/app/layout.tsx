@@ -7,6 +7,7 @@ import Footer from '@/shared/layout/Footer';
 import QueryProvider from '@/lib/QueryProvider';
 import { AuthProvider } from '@/context/AuthContext_ACCESS_TOKEN_ONLY';
 import { NotificationProvider } from '@/lib/notification/NotificationProvider';
+import { UserProvider } from '@/context/UserContext';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -30,44 +31,53 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <AuthProvider>
-            <NotificationProvider>
-              <Navbar
-                title="NAVBAR"
-                items={[
-                  { linkURL: '/about', title: 'about' },
-                  {
-                    parent: 'parent',
-                    children: [{ linkURL: '/about', title: 'about in parent' }],
-                  },
-                ]}
-              />
-              <main>
-                {/* <SidebarWrapper /> */}
-                {children}
-              </main>
-              <Footer
-                linkGroups={[
-                  {
-                    title: 'dummy',
-                    links: [
-                      { title: 'd1', url: '/d1' },
-                      { title: 'd2', url: '/d2' },
-                      { title: 'd3', url: '/d3' },
-                      { title: 'd4', url: '/d4' },
-                    ],
-                  },
-                  {
-                    title: 'silly',
-                    links: [
-                      { title: 's1', url: '/s1' },
-                      { title: 's2', url: '/s2' },
-                      { title: 's3', url: '/s3' },
-                      { title: 's4', url: '/s4' },
-                    ],
-                  },
-                ]}
-              />
-            </NotificationProvider>
+            <UserProvider>
+              <NotificationProvider>
+                <Navbar
+                  title="NAVBAR"
+                  itemsLeft={[
+                    { linkURL: '/about', title: 'about' },
+                    {
+                      parent: 'parent',
+                      children: [{ linkURL: '/about', title: 'about in parent' }],
+                    },
+                  ]}
+                  itemsRight={[
+                    { linkURL: '/about', title: 'about' },
+                    {
+                      parent: 'parent',
+                      children: [{ linkURL: '/about', title: 'about in parent' }],
+                    },
+                  ]}
+                />
+                <main>
+                  {/* <SidebarWrapper /> */}
+                  {children}
+                </main>
+                <Footer
+                  linkGroups={[
+                    {
+                      title: 'dummy',
+                      links: [
+                        { title: 'd1', url: '/d1' },
+                        { title: 'd2', url: '/d2' },
+                        { title: 'd3', url: '/d3' },
+                        { title: 'd4', url: '/d4' },
+                      ],
+                    },
+                    {
+                      title: 'silly',
+                      links: [
+                        { title: 's1', url: '/s1' },
+                        { title: 's2', url: '/s2' },
+                        { title: 's3', url: '/s3' },
+                        { title: 's4', url: '/s4' },
+                      ],
+                    },
+                  ]}
+                />
+              </NotificationProvider>
+            </UserProvider>
           </AuthProvider>
         </QueryProvider>
       </body>
