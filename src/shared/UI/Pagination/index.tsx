@@ -1,8 +1,10 @@
-import { IPaginationParams } from '@/shared/service/interface.schema';
 import React from 'react';
 
 interface PaginationProps {
-  pagination: IPaginationParams;
+  pagination: {
+    page: number;
+    totalPages: number;
+  };
   onPageChange: (page: number) => void;
 }
 

@@ -1,4 +1,6 @@
-import { useMemo } from 'react';
+'use client';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useQuery, UseQueryOptions, keepPreviousData } from '@tanstack/react-query';
 import { usePagination } from '@/shared/hooks/usePagination';
 import { DEFAULT_PAGE_SIZE } from '@/lib/constants';
@@ -42,5 +44,48 @@ export const createPaginatedQuery = <TFilters extends Record<string, any>, TResp
     });
 
     return { ...query, page, limit, setPage, setLimit };
+  };
+};
+
+export const createUrlSyncedPaginatedQuery = <TFilters extends Record<string, any>, TResponse>(
+  options: CreatePaginatedQueryOptions<TFilters, TResponse>
+) => {
+  const useBaseQuery = createPaginatedQuery<TFilters, TResponse>(options);
+
+  return (filters: TFilters) => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const { page, setPage, ...queryResult } = useBaseQuery(filters);
+
+    useEffect(() => {
+      const pageParam = parseInt(searchParams.get('page') ?? '1', 10);
+      if (!Number.isNaN(pageParam) && pageParam !== page) {
+        setPage(pageParam);
+      }
+    }, [searchParams, page]);
+
+    const handlePageChange = useCallback(
+      (nextPage: number) => {
+        setPage(nextPage);
+
+        const params = new URLSearchParams(searchParams);
+        if (nextPage === 1) {
+          params.delete('page');
+        } else {
+          params.set('page', `${nextPage}`);
+        }
+
+        router.push(`${pathname}?${params.toString()}`, { scroll: true });
+      },
+      [router, pathname, searchParams, setPage]
+    );
+
+    return {
+      ...queryResult,
+      page,
+      handlePageChange,
+    };
   };
 };

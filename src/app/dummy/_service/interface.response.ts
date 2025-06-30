@@ -1,3 +1,3 @@
 // <Context><Action><Detail?><Type>
 
-// export type QuestionsReadResponse = PaginatedResponse<IQuestion>;
+// export type DummyReadResponse = PaginatedResponse<IDummy>;
