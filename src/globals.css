@@ -1,21 +1,38 @@
+/* PLAYER CSS STYLINGS IMPORTING */
+@import 'video.js/dist/video-js.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 
-SOME SUGGESTED CSS STYLING
 * {
   direction: rtl;
-} */
+}
 
 /* #root {
   width: 100vw;
   min-height: 100vh;
 } */
 
+@font-face {
+  font-family: yekanbakhregular;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/yekanbakhregular/7296ae79f6faca68798b00fbbbee4c22.eot');
+  src:
+    url('../public/fonts/yekanbakhregular/7296ae79f6faca68798b00fbbbee4c22.eot')
+      format('embedded-opentype') /* IE6-8 */,
+    url('../public/fonts/yekanbakhregular/7296ae79f6faca68798b00fbbbee4c22.woff2') format('woff2')
+      /* FF39+,Chrome36+, Opera24+*/,
+    url('../public/fonts/yekanbakhregular/7296ae79f6faca68798b00fbbbee4c22.woff') format('woff')
+      /* FF3.6+, IE9, Chrome6+, Saf5.1+*/,
+    url('../public/fonts/yekanbakhregular/7296ae79f6faca68798b00fbbbee4c22.ttf') format('truetype');
+}
+
 /* MAIN ELEMENTS STYLING */
 body {
   @apply min-h-[100vh] flex flex-col;
+  font-family: 'yekanbakhregular';
 }
 
 main {
@@ -24,23 +41,308 @@ main {
 
 /* ALL SHADOWS */
 
+/* BUTTON */
+@layer components {
+  .btn {
+    --btn-focus-scale: 1;
+
+    --btn-shadow-y: 4px;
+    --btn-shadow-color: currentColor;
+
+    box-shadow: 0 var(--btn-shadow-y) 0 0 var(--btn-shadow-color);
+
+    transition:
+      box-shadow 0.15s ease-out,
+      transform 0.15s ease-out;
+    position: relative;
+  }
+
+  .btn-primary {
+    --btn-shadow-color: #46a302;
+  }
+
+  .btn-secondary {
+    --btn-shadow-color: #1899d6;
+  }
+
+  .btn-accent {
+    --btn-shadow-color: #e6e6e4;
+  }
+
+  .btn-accent {
+    @apply border border-base-200 bg-base-300  text-gray-600;
+  }
+
+  .btn-primary {
+    @apply text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-info border-info text-white;
+  }
+
+  .btn:active {
+    box-shadow: 0 0 0 0 var(--btn-shadow-color);
+    transform: translateY(var(--btn-shadow-y)) !important;
+  }
+}
+
+/* HEXAGON TOOLTIP ANIMATION */
+@layer utilities {
+  @keyframes tooltip-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes tooltip-out {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+
+  .animate-tooltip-in {
+    animation: tooltip-in 0.15s ease-out forwards;
+  }
+
+  .animate-tooltip-out {
+    animation: tooltip-out 0.15s ease-in forwards;
+  }
+}
+
 /* GLOBAL STANDARD SPACING PADDING AND MARGIN */
-.standard-horizontal-padding {
-  @apply px-standard-phone md:px-standard-tablet lg:px-standard-laptop;
+.standard-padding {
+  @apply px-standard-phone md:px-standard-tablet lg:px-standard-laptop py-md;
 }
 
 /* COMMON IN INPUTS */
+@layer components {
+  .input:focus-within,
+  .input:focus-within:focus,
+  .input input:focus {
+    outline: none !important;
+    outline-offset: 0 !important;
+  }
+
+  .input-default:focus-within {
+    outline: 1px solid #58cc02 !important;
+    outline-offset: 0 !important;
+  }
+
+  .input-error:focus-within {
+    outline: 1px solid #f42c04 !important;
+    outline-offset: 0 !important;
+  }
+}
+
 .custom-label-text {
-  @apply text-primary-content cursor-pointer label;
+  @apply text-neutral-content label text-xs font-semibold;
 }
 
 .custom-error-message {
-  @apply text-error text-xs font-bold;
+  @apply text-error text-xs font-normal;
 }
 
 .custom-error-label {
   @apply text-error;
 }
+
+/* VIDEO PLAYER STYLING MY CUSTOM SKIN */
+.vjs-my-skin,
+.vjs-my-skin * {
+  direction: ltr;
+}
+
+.vjs-my-skin .vjs-control-bar {
+  @apply h-24;
+}
+
+/* TOP SECTION CONTAINING PROGRESS BAR AND TIME REMAINING */
+/* PROGRESS BAR STYLING */
+.progress {
+  @apply h-[20px];
+}
+
+.vjs-my-skin div.vjs-progress-holder {
+  @apply bg-info-light-op-50 h-[16px] rounded-md;
+}
+
+.vjs-my-skin .vjs-progress-control .vjs-play-progress.vjs-slider-bar {
+  @apply bg-info rounded-md;
+}
+
+.vjs-my-skin .vjs-progress-control .vjs-play-progress.vjs-slider-bar::before {
+  @apply hidden;
+}
+
+.vjs-my-skin .vjs-progress-control .vjs-load-progress,
+.vjs-my-skin .vjs-progress-control .vjs-load-progress > div[data-start][data-end] {
+  @apply rounded-md;
+}
+
+/* REMAINING TIME PLACEMENT STYLING */
+.vjs-my-skin .vjs-remaining-time.vjs-time-control.vjs-control {
+  @apply ml-auto mt-2 mr-2 h-fit;
+}
+
+/* HIDE EVERYTHING EXCEPT THE TIME REMAINING SPAN */
+.vjs-my-skin
+  .vjs-remaining-time.vjs-time-control.vjs-control
+  > span:not(.vjs-remaining-time-display) {
+  display: none !important;
+}
+
+/* REMAINING TIME NUMBER TEXT STYLING */
+.vjs-my-skin .vjs-remaining-time-display {
+  font-family: 'yekanbakhregular';
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 100%;
+  letter-spacing: 0;
+}
+
+/* PUSH PICTURE-IN-PICTURE HIDDEN */
+.vjs-my-skin .vjs-picture-in-picture-control {
+  @apply hidden;
+}
+
+.vjs-my-skin div.vjs-progress-control.vjs-control {
+  @apply rounded-md;
+  position: absolute;
+  top: 10px;
+  left: 10%;
+  right: 10%;
+  width: 80%;
+  height: 20px;
+  z-index: 20;
+  margin: 0;
+  padding: 0;
+}
+
+/* TOP SECTION CONTAINING PROGRESS BAR AND TIME REMAINING */
+
+/* BOTTOM SECTION CONTAINING SOUND CONTROL BUTTON AND SKIP FORWARD AND BACKWARD BUTTONS */
+/* FULLSCREEN CONTROL PLACEMENT STYLING */
+.vjs-my-skin .vjs-fullscreen-control {
+  @apply absolute top-1/2 right-1 -translate-x-1/2 -translate-y-1/2 h-8 w-8 mt-2 z-20;
+}
+
+/* SOUND CONTROL BUTTON STYLING */
+.vjs-my-skin .vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal {
+  @apply absolute top-1/2 left-2 -translate-y-1/2 h-8 w-8 mt-2 z-20;
+}
+
+/* HIDE DEFAULT VIDEO.JS ICON */
+/* .vjs-my-skin .vjs-mute-control .vjs-icon-placeholder::before {
+  content: none !important;
+} */
+
+/* MUTED STATE */
+/* .vjs-my-skin .vjs-mute-control.vjs-vol-0 .vjs-icon-placeholder::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url('/img/svg/playerSoundVolumeIconSvg.svg') no-repeat center/contain;
+} */
+
+/* UN-MUTED STATE */
+/* .vjs-my-skin .vjs-mute-control.vjs-vol-1 .vjs-icon-placeholder::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url('/img/svg/playerSoundVolumeIconSvg.svg') no-repeat center/contain;
+} */
+
+/* SKIP FORWARD BUTTON STYLING */
+/* 10SEC FORWARD BUTTON PLACEMENT */
+.vjs-my-skin .vjs-skip-forward-10 {
+  @apply absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-8 w-8 mt-2 z-20;
+  left: calc(50% + 68px);
+  /* border: 3px solid red; */
+}
+
+/* 10SEC FORWARD ICON */
+.vjs-my-skin .vjs-skip-forward-10 .vjs-icon-placeholder::before {
+  content: '';
+  background: url('./../public/img/svg/playerJumpForwardIconSvg.svg') no-repeat center/contain;
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+/* SKIP BACKWARD BUTTON STYLING */
+/* 10SEC BACKWARD BUTTON PLACEMENT */
+.vjs-my-skin .vjs-skip-backward-10 {
+  @apply absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-8 w-8 mt-2 z-20;
+  left: calc(50% - 68px);
+  /* border: 3px solid red; */
+}
+
+/* 10SEC BACKWARD ICON */
+.vjs-my-skin .vjs-skip-backward-10 .vjs-icon-placeholder::before {
+  content: '';
+  background: url('./../public/img/svg/playerJumpBackwardIconSvg.svg') no-repeat center/contain;
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+/* PLAY CONTROLLER BUTTON CONTAINER STYLING */
+.vjs-my-skin .vjs-play-control {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-12 w-12 mt-2 z-20;
+}
+
+/* ORIGINAL PAUSE BUTTON HIDDEN */
+.vjs-my-skin .vjs-play-control.vjs-playing .vjs-icon-placeholder::before {
+  content: none !important;
+}
+
+/* CUSTOM PAUSE BUTTON STYLINGS */
+.vjs-my-skin .vjs-play-control.vjs-playing .vjs-icon-placeholder::after {
+  content: '';
+  display: block !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 48px !important;
+  height: 48px !important;
+  background-image: url('./../public/img/svg/playerPauseIconSvg.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 0 !important;
+}
+
+/* for play icon */
+/* .vjs-my-skin .vjs-play-control.vjs-paused .vjs-icon-placeholder::before {
+  content: none !important;
+  display: block;
+  width: 48px;
+  height: 48px;
+  background-image: url('/path/to/your/custom-play-icon.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  line-height: 1;
+} */
+
+/* BOTTOM SECTION CONTAINING SOUND CONTROL BUTTON AND SKIP FORWARD AND BACKWARD BUTTONS */
 
 /* Toastify Styling */
 .Toastify__toast.Toastify__toast--error {
@@ -57,4 +359,33 @@ main {
 
 .Toastify__toast.Toastify__toast--success {
   @apply bg-success text-success-content;
+}
+/* handle sidebar toggle */
+.sidebarClose {
+  @apply absolute top-0 right-0 w-64 min-h-screen translate-x-full transition-transform duration-300 ease-in-out m-auto;
+}
+
+.sidebarOpen {
+  @apply absolute 2xl:relative top-0 right-0 w-64 flex-shrink-0 min-h-screen translate-x-0 transition-transform duration-300 ease-in-out z-20;
+}
+/* sidebar item active mode */
+.sideAfter::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 32px;
+  background-color: #58cc02;
+  right: -8;
+  top: 0;
+  bottom: 0;
+  display: block;
+  margin: auto;
+  border-radius: 8px;
+}
+.input:focus,
+.input:focus-within,
+.input input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important ;
 }

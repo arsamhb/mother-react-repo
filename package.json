@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.62.15",
+    "@types/video.js": "^7.3.58",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
@@ -24,6 +25,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-toastify": "^11.0.2",
+    "videojs-landscape-fullscreen": "^12.3.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {
@@ -42,6 +44,7 @@
     "lint-staged": "^15.3.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "video.js": "^8.22.0"
   }
 }

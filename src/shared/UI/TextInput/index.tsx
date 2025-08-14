@@ -1,20 +1,22 @@
 import clsx from 'clsx';
-import React from 'react';
+import Image, { StaticImageData } from 'next/image';
+import React, { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
-export interface TextInputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'className' | 'type' | 'value' | 'onChange'
-  > {
+export interface TextInputProps {
   value: string | number;
-  label: string;
-  type: React.HTMLInputTypeAttribute;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+  type: HTMLInputTypeAttribute;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-  error?: string;
-  wrapperClassName?: string;
+  error?: string | undefined;
+  id: string;
+  name: string;
+  icon?: React.ReactNode;
+  containerClassName?: string;
   labelClassName?: string;
-  inputClassName?: string;
+  disabled?: boolean;
+  multiline?: boolean;
+  iconItem?: StaticImageData | string;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -26,42 +28,40 @@ const TextInput: React.FC<TextInputProps> = ({
   error,
   id,
   name,
-  wrapperClassName,
+  icon,
+  containerClassName,
   labelClassName,
-  inputClassName,
-  ...rest
+  disabled,
+  iconItem,
+  ...props
 }) => {
-  const inputId = id ?? name ?? `text-${Math.random().toString(36).slice(2, 8)}`;
-
-  const labelTitleClassName = clsx('custom-label-text', { 'custom-error-label': error });
-  const finalInputClassName = clsx('input input-bordered flex items-center gap-2', inputClassName);
-  const finalLabelClassName = clsx('w-full', labelClassName);
-  const finalWrapperClassName = clsx(wrapperClassName);
-
   return (
-    <div className={finalWrapperClassName}>
-      <div className="label">
-        <h4 className={labelTitleClassName}>{label}</h4>
-      </div>
-      <label htmlFor={inputId} className={finalLabelClassName}>
+    <div className={containerClassName}>
+      <div className="label p-0">{label && <h4 className={'custom-label-text'}>{label}</h4>}</div>
+      <label
+        className={clsx(
+          `input  flex items-center gap-2 ${labelClassName}`,
+          error ? 'input-error' : 'input-default'
+        )}
+        // TODO ADD MULTIPLE VARIATION FOR INPUT
+        // className={clsx(`input flex items-center gap-2 bg-base-300 ${labelClassName}`, error ? 'input-error' : 'input-default')}
+      >
+        {iconItem && <Image src={iconItem} alt="جستجو" />}
+
         <input
-          id={inputId}
+          disabled={disabled}
+          id={id}
           name={name}
           type={type}
-          className={finalInputClassName}
+          className="grow text-center font-normal text-base text-neutral-content"
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          aria-invalid={!!error}
-          aria-describedby={error ? `${inputId}-error` : undefined}
-          {...rest}
+          {...props}
         />
+        {icon && <kbd className="kbd kbd-sm">{icon}</kbd>}
       </label>
-      {error && (
-        <p id={`${inputId}-error`} role="alert" className="custom-error-message">
-          {error}
-        </p>
-      )}
+      {error && <p className="custom-error-message">{error}</p>}
     </div>
   );
 };
