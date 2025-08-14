@@ -1,6 +1,6 @@
-import SearchDropDownToolbar from './_component/SearchWithDropDowns';
+import WholeContent from './_component/WholeContent';
 const page = () => {
-  return <SearchDropDownToolbar />;
+  return <WholeContent />;
 };
 
 export default page;
