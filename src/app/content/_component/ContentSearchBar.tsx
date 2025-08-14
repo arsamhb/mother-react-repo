@@ -17,7 +17,7 @@ const ContentSearchBar: React.FC<ContentSearchBarProps> = ({}) => {
   // });
 
   return (
-    <form className="flex grow">
+    <form className="flex grow ">
       <TextInput
         id="search-bar"
         name="search-bar"

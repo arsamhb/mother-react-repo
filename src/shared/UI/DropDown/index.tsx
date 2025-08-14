@@ -23,12 +23,12 @@ const DropDown: React.FC<DropDownProps> = ({
     <div
       onClick={() => children && setIsOpen(true)}
       onBlur={() => setIsOpen(false)}
-      className="dropdown"
+      className="dropdown flex-shrink-0"
     >
       <div
         tabIndex={0}
         role="button"
-        className={`btn   shadow-none ${isOpen && 'rounded-b-none'} ${dropDownSize}`}
+        className={`btn shadow-none ${isOpen && 'rounded-b-none'} ${dropDownSize}`}
       >
         <Image
           src={isOpen ? dropDownIconOpenMode || dropDownIconCloseMode : dropDownIconCloseMode}

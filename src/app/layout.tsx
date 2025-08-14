@@ -21,7 +21,7 @@ export default function RootLayout({
           <Sidebar
             items={[
               { title: 'صفحه اصلی', linkUrl: '/', officeIcon: OfficeHomeIcon },
-              { title: 'بانک محتوا', linkUrl: '/contentbank', officeIcon: UsersNotActive },
+              { title: 'بانک محتوا', linkUrl: '/content', officeIcon: UsersNotActive },
               { title: 'کاربران', linkUrl: '/users', officeIcon: UsersNotActive },
               { title: 'گزارش', linkUrl: '/report', officeIcon: OfficeReportIcon },
             ]}

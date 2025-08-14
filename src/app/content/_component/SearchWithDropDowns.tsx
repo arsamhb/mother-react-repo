@@ -29,7 +29,7 @@ const SearchDropDownToolbar = () => {
               <DropDownChildItem title="آزمون" itemIcon={buttonRoadMapTimerSvg} />
             </DropDown>
           </div>
-          <div className="leftItems flex justify-end  items-center basis-1/2 w-full    gap-x-2">
+          <div className="leftItems flex justify-end  items-center basis-2/3 xl:basis-1/2 w-full    gap-x-2">
             <DropDown
               title="تاریخ"
               dropDownIconCloseMode={backofficeListIconSvg}

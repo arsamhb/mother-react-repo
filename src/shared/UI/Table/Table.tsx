@@ -1,7 +1,10 @@
+'use client';
 import backTableActionIconSvg from '@public/img/svg/backTableActionIconSvg.svg';
 import Image from 'next/image';
+import { useState } from 'react';
 
 function Table() {
+  const [evalutationStatle] = useState<'start' | 'done'>('start');
   return (
     <div className="overflow-x-auto">
       <table className="table w-full  overflow-hidden">
@@ -44,7 +47,7 @@ function Table() {
             <td>
               <div className="line-clamp-1">پایه نهم-ریاضی فیزیک</div>
             </td>
-            <td className="text-backBlue">شروع</td>
+            <td className={`${evalutationStatle === 'start' && 'text-primary'}`}>شروع</td>
             <td>در صف انجام</td>
             <td className="m-auto">
               <input type="checkbox" className="toggle toggle-info" defaultChecked />
@@ -82,7 +85,7 @@ function Table() {
             <td>انجام شده</td>
             <td>در حال انجام</td>
             <td className="m-auto">
-              <input type="checkbox" className="toggle toggle-info" defaultChecked />
+              <input type="checkbox" className="toggle toggle-info" />
             </td>
             <td>نیلی</td>
             <td>1403/06/01</td>
