@@ -2,14 +2,14 @@ import clsx from 'clsx';
 import React from 'react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'neutral';
   isLoading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   isLoading = false,
-  disabled,
+  disabled = false,
   className,
   children,
   ...rest
@@ -17,11 +17,12 @@ const Button: React.FC<ButtonProps> = ({
   const isDisabled = disabled || isLoading;
 
   const buttonClassName = clsx(
-    'btn',
+    `btn shadow-none ${className}`,
     {
       'btn-disabled': isDisabled,
       'btn-primary': variant === 'primary' && !isDisabled,
       'btn-secondary': variant === 'secondary' && !isDisabled,
+      'btn-neutral': variant === 'neutral' && !isDisabled,
     },
     className
   );
