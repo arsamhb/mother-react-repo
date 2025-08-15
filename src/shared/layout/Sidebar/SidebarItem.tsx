@@ -11,7 +11,7 @@ export interface ISideItem {
 }
 const SidebarItem: React.FC<{ item: ISideItem }> = ({ item }) => {
   const pathname = usePathname();
-  const isActive = pathname === item.linkUrl;
+  const isActive = pathname.includes(item.linkUrl);
   return (
     <div className="p-0 relative">
       {isActive && <div className="sideAfter"></div>}

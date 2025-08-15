@@ -6,7 +6,7 @@ import uploadIconSvg from '@public/img/svg/uploadIconSvg.svg';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 
-const FileUploadZone: React.FC<{
+const CoverFileUploadZone: React.FC<{
   onFileUpload: (data: { id: number }, file: File) => void;
 }> = ({ onFileUpload }) => {
   const [isUploading, setIsUploading] = useState(false);
@@ -45,41 +45,39 @@ const FileUploadZone: React.FC<{
   };
 
   return (
-    <div className="text-center flex items-center justify-center px-24 xl:px-52">
+    <div className="flex items-center justify-center ">
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        className="w-full border-2 border-dashed border-primary rounded-lg p-12 my-6 cursor-pointer transition-colors"
+        className="w-full flex justify-between items-center border-2 border-dashed border-primary rounded-lg p-6  cursor-pointer transition-colors"
       >
-        <div className="flex flex-col items-center">
+        <div className="flex text-center items-center gap-x-2">
           <Image src={uploadIconSvg} alt="بارگذاری" className="mb-6" />
           <div>
-            <p className="text-lg mb-2">فایل را انتخاب کنید یا بکشید و اینجا رها کنید</p>
-            <p className="text-gray-500 text-sm">JPG, PNG, PDF, MP4</p>
+            <p className="text-lg mb-2 font-semibold">تصویر پیش فرض نمایش </p>
+            <p className="text-gray-500 text-sm">JPG, PNG</p>
           </div>
         </div>
 
-        <div>
-          <Button
-            variant="primary"
-            className="min-w-40 px-20 mt-6"
-            onClick={() => fileInputRef.current?.click()}
-            isLoading={isUploading}
-          >
-            انتخاب فایل
-          </Button>
+        <Button
+          variant="primary"
+          className="min-w-20 px-10"
+          onClick={() => fileInputRef.current?.click()}
+          isLoading={isUploading}
+        >
+          انتخاب فایل
+        </Button>
 
-          <input
-            ref={fileInputRef}
-            type="file"
-            className="hidden"
-            accept=".jpg,.jpeg,.png,.pdf,.mp4"
-            onChange={(e) => handleFileSelect(e.target.files)}
-          />
-        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          className="hidden"
+          accept=".jpg,.jpeg,.png,.pdf,.mp4"
+          onChange={(e) => handleFileSelect(e.target.files)}
+        />
       </div>
     </div>
   );
 };
 
-export default FileUploadZone;
+export default CoverFileUploadZone;

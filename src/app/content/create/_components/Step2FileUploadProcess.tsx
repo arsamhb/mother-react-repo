@@ -1,5 +1,5 @@
 import React from 'react';
-import FileUploadProgress from './FileUploadSuccess';
+import FileUploadSuccess from './FileUploadSuccess';
 import FileUploadZone from './FileUploadZone';
 export interface UploadedFile {
   file: File;
@@ -16,7 +16,7 @@ const Step2FileUploadProcess: React.FC<Step2FileUploadProps> = ({ uploadedFile, 
     <>
       {uploadedFile ? (
         <>
-          <FileUploadProgress uploadedFile={uploadedFile} />
+          <FileUploadSuccess uploadedFile={uploadedFile} />
         </>
       ) : (
         <FileUploadZone onFileUpload={onFileUpload} />

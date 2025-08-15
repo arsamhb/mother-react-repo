@@ -20,7 +20,7 @@ export default function RootLayout({
         <div className="w-full min-h-screen flex bg-neutral overflow-x-hidden">
           <Sidebar
             items={[
-              { title: 'صفحه اصلی', linkUrl: '/', officeIcon: OfficeHomeIcon },
+              { title: 'صفحه اصلی', linkUrl: '/home', officeIcon: OfficeHomeIcon },
               { title: 'بانک محتوا', linkUrl: '/content', officeIcon: UsersNotActive },
               { title: 'کاربران', linkUrl: '/users', officeIcon: UsersNotActive },
               { title: 'گزارش', linkUrl: '/report', officeIcon: OfficeReportIcon },

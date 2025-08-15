@@ -28,6 +28,7 @@ function VideoUploadStepper() {
   const [selectedCreationMethod, setSelectedCreationMethod] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
+  const [coverUploadedFile, setCoverUploadedFile] = useState<UploadedFile | null>(null);
   const [metadata, setMetadata] = useState<VideoMetadata>({
     title: '',
     description: '',
@@ -41,6 +42,13 @@ function VideoUploadStepper() {
   });
   const handleFileUpload = (response: { id: number }, file: File) => {
     setUploadedFile({
+      id: response.id,
+      file,
+      status: 'completed',
+    });
+  };
+  const handleCoverFileUpload = (response: { id: number }, file: File) => {
+    setCoverUploadedFile({
       id: response.id,
       file,
       status: 'completed',
@@ -94,7 +102,14 @@ function VideoUploadStepper() {
           <Step2FileUploadProcess uploadedFile={uploadedFile} onFileUpload={handleFileUpload} />
         );
       case 3:
-        return <Step3VideoMetadata metadata={metadata} onMetadataChange={setMetadata} />;
+        return (
+          <Step3VideoMetadata
+            uploadedFile={coverUploadedFile}
+            onFileUpload={handleCoverFileUpload}
+            metadata={metadata}
+            onMetadataChange={setMetadata}
+          />
+        );
       case 4:
         return (
           <Step4Categories

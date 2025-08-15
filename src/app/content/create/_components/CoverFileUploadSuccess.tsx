@@ -1,7 +1,7 @@
 import trashIconRedSvg from '@public/img/svg/trashIconRedSvg.svg';
 import trashIconSvg from '@public/img/svg/trashIconSvg.svg';
 
-import videoIconSvg from '@public/img/svg/videoIconSvg.svg';
+import coverIconSvg from '@public/img/svg/coverIconSvg.svg';
 import videoImgSvg from '@public/img/svg/videoImgSvg.svg';
 import Image from 'next/image';
 
@@ -12,7 +12,7 @@ interface FileUploadProgressProps {
   uploadedFile: UploadedFile;
 }
 
-const FileUploadSuccess: React.FC<FileUploadProgressProps> = ({ uploadedFile }) => {
+const CoverFileUploadSuccess: React.FC<FileUploadProgressProps> = ({ uploadedFile }) => {
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -26,13 +26,13 @@ const FileUploadSuccess: React.FC<FileUploadProgressProps> = ({ uploadedFile }) 
       <div className="w-full bg-neutral rounded-xs p-4">
         <div>
           <div className="flex gap-x-1 mb-4">
-            <Image src={videoIconSvg} alt="آیکون ویدیو" />
+            <Image src={coverIconSvg} alt="عکس" />
             <span>فیلم اصلی</span>
           </div>
           <div className="flex items-start justify-between">
             <div className="flex flex-1 gap-x-2">
               <div className=" flex items-center justify-center">
-                <Image src={videoImgSvg} alt="آیون ویدیو" />
+                <Image src={videoImgSvg} alt=" آیکون ویدیو" />
               </div>
               <div className="flex-1 space-y-3 text-right">
                 <p className=" flex flex-col gap-x-1 text-sm text-neutral-content">
@@ -60,4 +60,4 @@ const FileUploadSuccess: React.FC<FileUploadProgressProps> = ({ uploadedFile }) 
   );
 };
 
-export default FileUploadSuccess;
+export default CoverFileUploadSuccess;

@@ -1,27 +1,61 @@
-import React, { useRef } from 'react';
+import React from 'react';
+import CoverFileUploadZone from './CoverFileUploadZone';
+import FileUploadSuccess from './FileUploadSuccess';
+import { UploadedFile } from './Step2FileUploadProcess';
 import { VideoMetadata } from './VideoUploadStepper';
 interface Step3Props {
   metadata: VideoMetadata;
   onMetadataChange: (metadata: VideoMetadata) => void;
+  uploadedFile: UploadedFile | null;
+  onFileUpload: (data: { id: number }, file: File) => void;
 }
 
-const Step3VideoMetadata: React.FC<Step3Props> = ({ metadata, onMetadataChange }) => {
-  const coverInputRef = useRef<HTMLInputElement>(null);
-
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
+const Step3VideoMetadata: React.FC<Step3Props> = ({
+  uploadedFile,
+  onFileUpload,
+  metadata,
+  onMetadataChange,
+}) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Right Side - Cover Upload */}
+      <div>
+        {uploadedFile ? (
+          <>
+            <FileUploadSuccess uploadedFile={uploadedFile} />
+          </>
+        ) : (
+          <CoverFileUploadZone onFileUpload={onFileUpload} />
+        )}
+
+        <div className="mt-6">
+          <label className="block text-sm font-medium mb-2">عنوان اصلی فیلم *</label>
+          <input
+            type="text"
+            placeholder="عنوان فیلم را وارد کنید"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div className="mt-4">
+          <label className="block text-sm font-medium mb-2">کتب</label>
+          <input
+            type="text"
+            placeholder="عنوان را وارد کنید"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <div className="mt-4">
+          <label className="block text-sm font-medium mb-2">مقطع *</label>
+          <input
+            type="text"
+            placeholder="انتخاب کنید"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+      </div>
+
       {/* Left Side - Form */}
       <div className="space-y-6">
         <div>
@@ -102,83 +136,6 @@ const Step3VideoMetadata: React.FC<Step3Props> = ({ metadata, onMetadataChange }
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             value={metadata.field}
             onChange={(e) => onMetadataChange({ ...metadata, field: e.target.value })}
-          />
-        </div>
-      </div>
-
-      {/* Right Side - Cover Upload */}
-      <div>
-        <h3 className="text-lg font-medium mb-4">تصویر پیش فرض نمایش</h3>
-        <p className="text-sm text-gray-600 mb-4">JPG, PNG</p>
-
-        {!metadata.coverImage ? (
-          <div
-            onDrop={(e) => {
-              e.preventDefault();
-              const files = e.dataTransfer.files;
-              if (files && files.length > 0) {
-                onMetadataChange({ ...metadata, coverImage: files[0] });
-              }
-            }}
-            onDragOver={handleDragOver}
-            className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-blue-500 transition-colors"
-          >
-            {/* <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" /> */}
-            <button
-              onClick={() => coverInputRef.current?.click()}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              انتخاب فایل
-            </button>
-          </div>
-        ) : (
-          <div className="border border-gray-300 rounded-lg p-4">
-            <div className="flex items-center gap-3">
-              {/* <Image className="w-8 h-8 text-gray-600" /> */}
-              <div>
-                <p className="font-medium">{metadata.coverImage.name}</p>
-                <p className="text-sm text-gray-500">{formatFileSize(metadata.coverImage.size)}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <input
-          ref={coverInputRef}
-          type="file"
-          className="hidden"
-          accept="image/*"
-          onChange={(e) => {
-            if (e.target.files && e.target.files[0]) {
-              onMetadataChange({ ...metadata, coverImage: e.target.files[0] });
-            }
-          }}
-        />
-
-        <div className="mt-6">
-          <label className="block text-sm font-medium mb-2">عنوان اصلی فیلم *</label>
-          <input
-            type="text"
-            placeholder="عنوان فیلم را وارد کنید"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        <div className="mt-4">
-          <label className="block text-sm font-medium mb-2">کتب</label>
-          <input
-            type="text"
-            placeholder="عنوان را وارد کنید"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        <div className="mt-4">
-          <label className="block text-sm font-medium mb-2">مقطع *</label>
-          <input
-            type="text"
-            placeholder="انتخاب کنید"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
       </div>
