@@ -1,51 +1,47 @@
-import clsx from 'clsx';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
-export interface CheckboxInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'className'> {
+export interface CheckboxInputProps {
   label: string;
-  error?: string;
-  wrapperClassName?: string;
-  labelClassName?: string;
-  inputClassName?: string;
+  isChecked?: boolean;
+  onChange?: (e: ChangeEvent<Element>) => void;
+  error?: string | undefined;
+  id: string;
+  name: string;
+  labelTitleClassName?: string;
+  inputClassName: string;
+  disabled?: boolean;
 }
 
 const CheckboxInput: React.FC<CheckboxInputProps> = ({
   label,
+  isChecked,
+  onChange,
   error,
   id,
   name,
-  wrapperClassName,
-  labelClassName,
+  labelTitleClassName,
   inputClassName,
-  ...rest
+  disabled,
 }) => {
-  const inputId = id ?? name ?? `checkbox-${Math.random().toString(36).slice(2, 8)}`;
-
-  const labelTitleClassName = clsx('label-text', { 'custom-error-label': error });
-  const finalInputClassName = clsx('checkbox checkbox-primary border-2', inputClassName);
-  const finalLabelClassName = clsx('custom-label-text', labelClassName);
-  const finalWrapperClassName = clsx(wrapperClassName);
+  // const labelTitleClassName = clsx('label-text', {
+  //   'custom-error-label': error,
+  // });
 
   return (
-    <div className={finalWrapperClassName}>
-      <label htmlFor={inputId} className={finalLabelClassName}>
-        <h4 className={labelTitleClassName}>{label}</h4>
+    <div>
+      <label className={`custom-label-text flex items-center gap-md`}>
         <input
-          id={inputId}
+          id={id}
           name={name}
           type="checkbox"
-          aria-invalid={!!error}
-          aria-describedby={error ? `${inputId}-error` : undefined}
-          className={finalInputClassName}
-          {...rest}
+          checked={isChecked}
+          className={inputClassName}
+          onChange={onChange}
+          disabled={disabled}
         />
+        <span className={labelTitleClassName}>{label}</span>
       </label>
-      {error && (
-        <p id={`${inputId}-error`} role="alert" className="custom-error-message">
-          {error}
-        </p>
-      )}
+      {error && <p className="custom-error-message">{error}</p>}
     </div>
   );
 };

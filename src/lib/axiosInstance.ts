@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import authService from './auth/authService_ACCESS_TOKEN_ONLY';
+// import authService from './auth/authService_ACCESS_TOKEN_ONLY';
 import { notify } from './notification/notificationService';
 
 export const UNKNOWN_ERROR = {
@@ -12,13 +12,13 @@ const instance = axios.create({
   timeout: 5000,
 });
 
-instance.interceptors.request.use((config) => {
-  const token = authService.getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// instance.interceptors.request.use((config) => {
+//   const token = authService.getToken();
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
 
 instance.interceptors.response.use(
   (response) => response,

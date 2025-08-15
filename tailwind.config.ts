@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
 import daisyui from 'daisyui';
+import type { Config } from 'tailwindcss';
 
 export default {
   content: [
@@ -11,26 +11,27 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: '#8b00ff',
-          'primary-content': '#e5d9ff',
-          secondary: '#d96100',
-          'secondary-content': '#110300',
-          accent: '#00bdff',
-          'accent-content': '#000d16',
-          neutral: '#040705',
-          'neutral-content': '#c4c6c5',
-          'base-100': '#fff7ff',
-          'base-200': '#ded7de',
-          'base-300': '#beb7be',
-          'base-content': '#161516',
-          info: '#00a3ff',
-          'info-content': '#000a16',
-          success: '#50bb00',
-          'success-content': '#020d00',
-          warning: '#f6bb00',
-          'warning-content': '#150d00',
-          error: '#e15154',
-          'error-content': '#120202',
+          primary: '#1CB0F6',
+          'primary-content': '#FFFFFF',
+          secondary: '#58CC02',
+          'secondary-content': '#FFFFFF',
+          accent: '#1CB0F6',
+          'accent-content': '#777777',
+          neutral: '#F5F6FA',
+          'neutral-content': '#67748E',
+          'base-100': '#FFFFFF',
+          'base-200': '#F5F6FA',
+          'base-300': '#D5D5D5',
+          'base-content': '#202224',
+
+          // info: '#00a3ff',
+          // 'info-content': '#000a16',
+          // success: '#50bb00',
+          // 'success-content': '#020d00',
+          // warning: '#f6bb00',
+          // 'warning-content': '#150d00',
+          // error: '#e15154',
+          // 'error-content': '#120202',
           // EXTENDING TOKEN EXAMPLE
           // '--gold': '#FFB219',
         },
@@ -48,9 +49,11 @@ export default {
         'standard-laptop': '7rem',
       },
       borderRadius: {
-        sm: '1px',
-        md: '2px',
-        lg: '5px',
+        xs: '8px',
+        sm: '12px',
+        md: '16px',
+        lg: '20px',
+        xl: '24px',
       },
       borderWidth: {
         sm: '1px',
@@ -60,6 +63,7 @@ export default {
       screens: {
         phone: '480px',
         tablet: '768px',
+        smLaptop: '960px',
         laptop: '1024px',
         desktop: '1280px',
       },
@@ -73,9 +77,14 @@ export default {
         heading: ['2rem', { lineHeight: '2.5rem' }],
       },
       colors: {
-        // EXTENDING TOKEN EXAMPLE
+        'info-light': 'var(--info-light)',
+        'info-light-op-50': 'var(--info-light-op-50)',
         gold: 'var(--gold)',
+        'muted-content': 'var(--muted-content)',
+        'subtle-content': 'var(--subtle-content)',
+        'primary-ex-light': 'var(--primary-ex-light)',
       },
+      container: {},
     },
   },
   plugins: [daisyui],
