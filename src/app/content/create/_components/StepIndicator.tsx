@@ -1,39 +1,59 @@
-import CheckboxInput from '@/shared/UI/CheckboxInput';
+import CheckboxBlank from '@public/img/svg/checkboxBlank.svg';
+import CheckboxBlue from '@public/img/svg/checkboxBlue.svg';
+import CheckboxGreen from '@public/img/svg/checkboxGreen.svg';
+import Image from 'next/image';
 import { Step } from './VideoUploadStepper';
+
 interface StepIndicatorProps {
   steps: Step[];
   currentStep: number;
   completedSteps: number[];
 }
+
 const StepIndicator: React.FC<StepIndicatorProps> = ({ steps, currentStep, completedSteps }) => {
-  const getStepColor = (stepId: number) => {
-    if (completedSteps.includes(stepId)) return 'secondary';
-    if (stepId === currentStep) return 'primary';
-    return 'base-300';
+  const getStepStyles = (stepId: number) => {
+    const isCompleted = completedSteps.includes(stepId);
+    const isCurrent = stepId === currentStep;
+
+    if (isCompleted) {
+      return {
+        colorClass: 'secondary',
+        borderColor: 'oklch(var(--s))',
+        SvgComponent: CheckboxGreen,
+      };
+    }
+
+    if (isCurrent) {
+      return {
+        colorClass: 'primary',
+        borderColor: 'oklch(var(--p))',
+        SvgComponent: CheckboxBlue,
+      };
+    }
+
+    return {
+      colorClass: 'base-300',
+      borderColor: 'oklch(var(--b3))',
+      SvgComponent: CheckboxBlank,
+    };
   };
-  const getInputStepColor = (stepId: number) => {
-    if (completedSteps.includes(stepId)) return 'checkbox-success';
-    if (stepId === currentStep) return 'checkbox-info';
-    return '';
-  };
+
   return (
     <div className="flex gap-x-1">
-      {steps.map((step, index) => (
-        <div
-          className={`flex flex-1  border-spacing-2 border-t-4 border-rounded-full border-t-${getStepColor(step.id)} `}
-          key={index}
-        >
-          <CheckboxInput
-            id="edit-plan-modal"
-            name="edit-plan-modal"
-            label={step.label}
-            labelTitleClassName={`text-${getStepColor(step.id)}`}
-            inputClassName={`checkbox checkbox-xs  ${getInputStepColor(step.id)}`}
-            disabled={true}
-            isChecked={completedSteps.includes(step.id) ? true : false}
-          />
-        </div>
-      ))}
+      {steps.map((step, index) => {
+        const { colorClass, borderColor, SvgComponent } = getStepStyles(step.id);
+
+        return (
+          <div
+            className={`flex flex-1 gap-x-2 pt-1 border-t-4`}
+            style={{ borderTopColor: borderColor }}
+            key={index}
+          >
+            <Image src={SvgComponent} alt="نشانگر وضعیت" />
+            <span className={`text-${colorClass}`}>{step.label}</span>
+          </div>
+        );
+      })}
     </div>
   );
 };

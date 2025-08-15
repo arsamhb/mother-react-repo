@@ -1,9 +1,8 @@
 'use client';
 import { useState } from 'react';
-import { useFileUpload } from '../../_component/useFileUpload';
 import NavigationButtons from './NavigationButtons';
 import Step1CreationMethod from './Step1CreationMethod';
-import Step2FileUploadProcess from './Step2FileUploadProcess';
+import Step2FileUploadProcess, { UploadedFile } from './Step2FileUploadProcess';
 import Step3VideoMetadata from './Step3VideoMetaData';
 import Step4Categories from './Step4Categories';
 import StepIndicator from './StepIndicator';
@@ -12,7 +11,6 @@ export interface Step {
   title: string;
   label: string;
 }
-
 export interface VideoMetadata {
   title: string;
   description: string;
@@ -29,7 +27,7 @@ function VideoUploadStepper() {
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [selectedCreationMethod, setSelectedCreationMethod] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const { uploadedFile, handleFileSelect } = useFileUpload();
+  const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
   const [metadata, setMetadata] = useState<VideoMetadata>({
     title: '',
     description: '',
@@ -41,6 +39,13 @@ function VideoUploadStepper() {
     field: '',
     category: '',
   });
+  const handleFileUpload = (response: { id: number }, file: File) => {
+    setUploadedFile({
+      id: response.id,
+      file,
+      status: 'completed',
+    });
+  };
   const canProceed = () => {
     switch (currentStep) {
       case 1:
@@ -60,14 +65,6 @@ function VideoUploadStepper() {
       setCompletedSteps((prev) => [...prev, currentStep]);
       if (currentStep < 4) {
         setCurrentStep(currentStep + 1);
-      } else {
-        // Handle final submission
-        console.log('Form completed!', {
-          selectedCreationMethod,
-          uploadedFile,
-          metadata,
-          selectedCategory,
-        });
       }
     }
   };
@@ -94,7 +91,7 @@ function VideoUploadStepper() {
         );
       case 2:
         return (
-          <Step2FileUploadProcess uploadedFile={uploadedFile} onFileSelect={handleFileSelect} />
+          <Step2FileUploadProcess uploadedFile={uploadedFile} onFileUpload={handleFileUpload} />
         );
       case 3:
         return <Step3VideoMetadata metadata={metadata} onMetadataChange={setMetadata} />;

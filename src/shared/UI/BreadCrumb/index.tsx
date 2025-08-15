@@ -1,17 +1,17 @@
-function index() {
+import Link from 'next/link';
+
+const BreadCrumb: React.FC<{ title: string }> = ({ title }) => {
   return (
     <div className="breadcrumbs text-sm">
       <ul>
         <li>
-          <a>Home</a>
+          <Link href={'/content/create'} className="text-base-content font-semibold">
+            / {title}
+          </Link>
         </li>
-        <li>
-          <a>Documents</a>
-        </li>
-        <li>Add Document</li>
       </ul>
     </div>
   );
-}
+};
 
-export default index;
+export default BreadCrumb;

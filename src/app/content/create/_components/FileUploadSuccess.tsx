@@ -7,9 +7,9 @@ import Image from 'next/image';
 
 import React from 'react';
 import ProgressBar from '../../../../shared/UI/ProgressBar';
-import { FileUpload } from './Step2FileUploadProcess';
+import { UploadedFile } from './Step2FileUploadProcess';
 interface FileUploadProgressProps {
-  uploadedFile: FileUpload;
+  uploadedFile: UploadedFile;
 }
 
 const FileUploadProgress: React.FC<FileUploadProgressProps> = ({ uploadedFile }) => {
@@ -45,7 +45,7 @@ const FileUploadProgress: React.FC<FileUploadProgressProps> = ({ uploadedFile })
                   <p className=" text-xs font-semibold text-primary">برای مشاهده کلیک کنید</p>
                 )}
                 {uploadedFile.status === 'uploading' && (
-                  <ProgressBar min="" max="100" progressValue={`${uploadedFile.file.size}`} />
+                  <ProgressBar min="" max="100" progressValue={``} />
                 )}
               </div>
             </div>

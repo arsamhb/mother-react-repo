@@ -1,25 +1,27 @@
 import React from 'react';
-import FileUploadProgress from './FileUploadProgress';
+import FileUploadProgress from './FileUploadSuccess';
 import FileUploadZone from './FileUploadZone';
-export interface FileUpload {
+export interface UploadedFile {
   file: File;
-  progress: number;
+  id: number;
   status: 'uploading' | 'completed' | 'error';
 }
 interface Step2FileUploadProps {
-  uploadedFile: FileUpload | null;
-  onFileSelect: (files: FileList | null) => void;
+  uploadedFile: UploadedFile | null;
+  onFileUpload: (data: { id: number }, file: File) => void;
 }
 
-const Step2FileUploadProcess: React.FC<Step2FileUploadProps> = ({ uploadedFile, onFileSelect }) => {
+const Step2FileUploadProcess: React.FC<Step2FileUploadProps> = ({ uploadedFile, onFileUpload }) => {
   return (
-    <div>
+    <>
       {uploadedFile ? (
-        <FileUploadProgress uploadedFile={uploadedFile} />
+        <>
+          <FileUploadProgress uploadedFile={uploadedFile} />
+        </>
       ) : (
-        <FileUploadZone onFileSelect={onFileSelect} />
+        <FileUploadZone onFileUpload={onFileUpload} />
       )}
-    </div>
+    </>
   );
 };
 
