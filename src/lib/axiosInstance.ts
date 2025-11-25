@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
 import authService from './auth/authService_ACCESS_TOKEN_ONLY';
-import { notify } from './notification/notificationService';
 
 export const UNKNOWN_ERROR = {
   message: 'خطایی رخ داده است.',
@@ -23,14 +22,6 @@ instance.interceptors.request.use((config) => {
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    // HANDLE NOTIFYING THE CLIENT ON ERRORS
-    const payload = error.message ?? UNKNOWN_ERROR;
-    notify.error(typeof payload === 'string' ? payload : payload.message);
-
-    // HANDLING UN-AUTHORIZED ERROR
-    if (error.response && error.response.status === 401) {
-      window.dispatchEvent(new Event('auth:error'));
-    }
     return Promise.reject(error);
   }
 );

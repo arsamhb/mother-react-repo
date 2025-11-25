@@ -2,11 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext_ACCESS_TOKEN_ONLY';
 import { NavList } from './NavList';
 import type { INavItem, INavGroup } from './interfaces';
-import Button from '@/shared/UI/Button';
-// import BackButton from '@/shared/UI/BackButton';
 
 export interface NavbarProps {
   itemsLeft?: Array<INavItem | INavGroup>;
@@ -15,8 +12,6 @@ export interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ itemsLeft = [], itemsRight = [], title }) => {
-  const { isAuthenticated, logout } = useAuth();
-
   return (
     <>
       {/* Top bar */}
@@ -24,18 +19,6 @@ const Navbar: React.FC<NavbarProps> = ({ itemsLeft = [], itemsRight = [], title 
         <Link href="/" className="text-xl flex items-center">
           {title}
         </Link>
-        <div className="flex gap-2">
-          {/* <BackButton /> */}
-          {isAuthenticated ? (
-            <Button variant="primary" onClick={logout}>
-              خروج
-            </Button>
-          ) : (
-            <Button variant="primary">
-              <Link href="/auth">ورود</Link>
-            </Button>
-          )}
-        </div>
       </div>
 
       {/* Navbar */}
