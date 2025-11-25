@@ -26,7 +26,7 @@ const withAuth = (options?: WithAuthOptions) => {
       const { error, isFetching } = useQuery<any, CustomErrorResponseSchema>({
         queryKey: ['authTokenCheck'],
         queryFn: api.post('SOME_ROUTE_TO_BE_IMPORTED'),
-        enabled: !!token && !initializing,
+        enabled: false,
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: false,
       });

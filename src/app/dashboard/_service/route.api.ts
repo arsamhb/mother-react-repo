@@ -1,7 +1,7 @@
-// routes related to this module
+const JSON_PLACEHOLDER_ROUTE = 'https://jsonplaceholder.typicode.com';
 
-// static route example
-// const SAMPLE_ROUTE = "/sample"
+const JSON_PLACEHOLDER_POSTS_ROUTE = `${JSON_PLACEHOLDER_ROUTE}/posts`;
+const getJsonPlaceHolderPostCommentsRouteByPostId = (postId: string) =>
+  `${JSON_PLACEHOLDER_POSTS_ROUTE}/${postId}/comments`;
 
-// dynamic route example
-// const getSampleRouteBySampleId = (sampleId: string) => `/sample/${sampleId}`
+export { JSON_PLACEHOLDER_POSTS_ROUTE, getJsonPlaceHolderPostCommentsRouteByPostId };

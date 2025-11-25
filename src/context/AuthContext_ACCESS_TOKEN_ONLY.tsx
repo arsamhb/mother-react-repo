@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import authService from '@/lib/auth/authService_ACCESS_TOKEN_ONLY';
-import api from '@/lib/axiosInstance';
 
 interface IAuthContext {
   isAuthenticated: boolean;
@@ -49,12 +48,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // TO CHECK THE VALIDITY OF THE TOKEN ON APPLICATION INITIALIZATION
   useEffect(() => {
     if (authService.getToken()) {
-      const checkTokenOnAppInit = api.post('SOME_ROUTE_TO_BE_IMPORTED');
-      checkTokenOnAppInit({}).catch((err) => {
-        if (err.statusCode === 401) {
-          logout();
-        }
-      });
+      // const checkTokenOnAppInit = api.post('SOME_ROUTE_TO_BE_IMPORTED');
+      // checkTokenOnAppInit({}).catch((err) => {
+      //   if (err.statusCode === 401) {
+      //     logout();
+      //   }
+      // });
     }
   }, []);
 
