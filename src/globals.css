@@ -31,7 +31,7 @@ main {
 
 /* COMMON IN INPUTS */
 .custom-label-text {
-  @apply text-primary-content cursor-pointer label;
+  @apply text-primary cursor-pointer label;
 }
 
 .custom-error-message {

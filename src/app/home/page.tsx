@@ -1,7 +1,7 @@
-import EmploymentForm from './_components/EmploymentForm';
+import Task from './_components/Task';
 
 const page = () => {
-  return <EmploymentForm />;
+  return <Task />;
 };
 
 export default page;

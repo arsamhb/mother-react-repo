@@ -10,8 +10,11 @@ export interface CheckboxInputProps
 
 const CheckboxInput: React.FC<CheckboxInputProps> = ({ label, error, id, name, ...rest }) => {
   return (
-    <>
-      <label htmlFor={id} className={`label ${error ? 'custom-error-label' : 'custom-label-text'}`}>
+    <div className="flex flex-col">
+      <label
+        htmlFor={id}
+        className={`label w-fit gap-sm ${error ? 'custom-error-label' : 'custom-label-text'}`}
+      >
         <input
           id={id}
           name={name}
@@ -28,7 +31,7 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({ label, error, id, name, .
           {error}
         </p>
       )}
-    </>
+    </div>
   );
 };
 

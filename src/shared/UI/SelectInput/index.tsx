@@ -27,7 +27,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   ...rest
 }) => {
   return (
-    <>
+    <div>
       <label htmlFor={id} className={`label ${error ? 'custom-error-label' : 'custom-label-text'}`}>
         {label}
       </label>
@@ -55,7 +55,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           {error}
         </p>
       )}
-    </>
+    </div>
   );
 };
 

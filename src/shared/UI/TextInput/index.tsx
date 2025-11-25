@@ -27,7 +27,7 @@ const TextInput: React.FC<TextInputProps> = ({
   ...rest
 }) => {
   return (
-    <>
+    <div>
       <label htmlFor={id} className={`label ${error ? 'custom-error-label' : 'custom-label-text'}`}>
         {label}
       </label>
@@ -48,7 +48,7 @@ const TextInput: React.FC<TextInputProps> = ({
           {error}
         </p>
       )}
-    </>
+    </div>
   );
 };
 
