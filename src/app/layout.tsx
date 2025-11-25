@@ -17,9 +17,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initTheme = `
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+        return;
+      }
+      var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = isDark ? 'mytheme-dark' : 'mytheme';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    } catch (e) {}
+  })();`;
+
   return (
-    <html lang="en">
-      <body data-theme="mytheme">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: initTheme }} />
+      </head>
+      <body>
         <QueryProvider>
           <AuthProvider>
             <Navbar

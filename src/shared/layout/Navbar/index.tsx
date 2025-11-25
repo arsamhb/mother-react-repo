@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { NavList } from './NavList';
+import { useTheme } from '@/shared/hooks/useTheme';
 import type { INavItem, INavGroup } from './interfaces';
 
 export interface NavbarProps {
@@ -12,13 +13,26 @@ export interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ itemsLeft = [], itemsRight = [], title }) => {
+  const { isDark, handleThemeToggle } = useTheme();
+
   return (
     <>
-      {/* Top bar */}
       <div className="flex flex-row-reverse justify-between items-center text-primary-content bg-primary h-[42px] standard-horizontal-padding">
-        <Link href="/" className="text-xl flex items-center">
-          {title}
-        </Link>
+        <div className="flex items-center gap-4">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <span className="text-sm">🌕</span>
+            <input
+              type="checkbox"
+              checked={isDark}
+              onChange={(e) => handleThemeToggle(e.target.checked)}
+              className="toggle theme-controller col-span-2 col-start-1 row-start-1 border-sky-400 bg-amber-300 [--tglbg:theme(colors.sky.500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:theme(colors.blue.900)]"
+            />
+            <span className="text-sm">☀️</span>
+          </label>
+          <Link href="/" className="text-xl flex items-center">
+            {title}
+          </Link>
+        </div>
       </div>
 
       {/* Navbar */}
