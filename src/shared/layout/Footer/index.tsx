@@ -20,7 +20,7 @@ export interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
   return (
     <footer className="flex items-center flex-col justify-between text-secondary-content standard-horizontal-padding bg-secondary">
-      <section className="flex items-center flex-col md:flex-row justify-between w-full">
+      <section className="flex items-center flex-col md:flex-row justify-between w-full py-md">
         <aside>
           <Image src={logoAddress} width={100} height={100} alt="the-business-logo" />
           <p>
@@ -44,7 +44,6 @@ const Footer: React.FC<FooterProps> = ({ linkGroups }) => {
           );
         })}
       </section>
-      <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
     </footer>
   );
 };
