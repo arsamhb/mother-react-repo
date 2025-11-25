@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
+import Loading from '../Loading';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
@@ -12,6 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   className,
   children,
+  type = 'button',
   ...rest
 }) => {
   const isDisabled = disabled || isLoading;
@@ -19,16 +21,15 @@ const Button: React.FC<ButtonProps> = ({
   const buttonClassName = clsx(
     'btn',
     {
+      'btn-primary': variant === 'primary',
+      'btn-secondary': variant === 'secondary',
       'btn-disabled': isDisabled,
-      'btn-primary': variant === 'primary' && !isDisabled,
-      'btn-secondary': variant === 'secondary' && !isDisabled,
     },
     className
   );
-
   return (
-    <button {...rest} disabled={isDisabled} className={buttonClassName}>
-      {isLoading ? <span className="loading loading-dots loading-sm" /> : children}
+    <button disabled={isDisabled} className={buttonClassName} type={type} {...rest}>
+      {isLoading ? <Loading size="sm" /> : children}
     </button>
   );
 };

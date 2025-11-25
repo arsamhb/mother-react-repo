@@ -1,10 +1,7 @@
-'use client';
-import React from 'react';
+import EmploymentForm from './_components/EmploymentForm';
 
 const page = () => {
-  return (
-    <section className="flex flex-col gap-4 standard-horizontal-padding py-md">HELLO WORLD</section>
-  );
+  return <EmploymentForm />;
 };
 
 export default page;

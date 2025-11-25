@@ -42,8 +42,6 @@ const eslintConfig = [
       'src/hoc/**',
       'src/app/question/createByWord/_components/WordFileQuestionUploadFlow.tsx',
       'src/shared/UI/FileInput/index.tsx',
-      'src/shared/util/createPaginatedQuery.ts',
-      'src/shared/hooks/usePagination.tsx',
       '**/hook.mutation.tsx',
     ],
     rules: {
