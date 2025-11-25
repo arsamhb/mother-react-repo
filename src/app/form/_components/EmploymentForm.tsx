@@ -2,7 +2,7 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { employmentFormValidationSchema, EmploymentFormSchema } from '@/app/home/_service/schema';
+import { employmentFormValidationSchema, EmploymentFormSchema } from '@/app/form/_service/schema';
 import TextInput from '@/shared/UI/TextInput';
 import Button from '@/shared/UI/Button';
 import CheckboxInput from '@/shared/UI/CheckboxInput';

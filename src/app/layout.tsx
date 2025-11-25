@@ -22,7 +22,13 @@ export default function RootLayout({
       <body data-theme="mytheme">
         <QueryProvider>
           <AuthProvider>
-            <Navbar title="AAWIZ" itemsLeft={[{ linkURL: '/home', title: 'home' }]} />
+            <Navbar
+              title="AAWIZ"
+              itemsLeft={[
+                { linkURL: '/form', title: 'form' },
+                { linkURL: '/dashboard', title: 'dashboard' },
+              ]}
+            />
             <main>{children}</main>
             <Footer
               linkGroups={[
