@@ -1,11 +1,14 @@
+'use client';
 import Link from 'next/link';
+import Collapsible from '../shared/UI/Collapsible';
+import TextArea from '../shared/UI/TextAreaInput';
 
 export default function Home() {
   return (
-    <section className="flex flex-col gap-4 standard-horizontal-padding">
+    <section className="flex flex-col gap-4 standard-horizontal-padding ">
       <h1 className="text-2xl font-bold">AAWIZ</h1>
       <h2 className="text-xl font-bold">Where Employee Wellness Meets Innovation!</h2>
-      <article className="flex flex-col gap-md">
+      <article className="flex flex-col gap-md my-md">
         <p>
           for checking the dashboard for fetching data with from jsonplaceholder API for you can
           navigate to the dashboard by clicking the button below:
@@ -47,6 +50,20 @@ export default function Home() {
             github.com/arsamhb/mother-react-repo
           </Link>
         </p>
+        <button className="btn btn-info">Primary</button>
+        <Collapsible header={'dropdown'}>
+          <p>item1</p>
+        </Collapsible>
+        <Collapsible header={'dropdown'}>
+          <p>item2</p>
+        </Collapsible>
+        <TextArea
+          value={'test'}
+          onChange={() => console.log('test')}
+          placeholder="صورت سوال"
+          id="description"
+          name="description"
+        />
       </article>
     </section>
   );

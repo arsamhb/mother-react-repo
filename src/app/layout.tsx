@@ -4,6 +4,7 @@ import Navbar from '@/shared/layout/Navbar';
 import Footer from '@/shared/layout/Footer';
 import QueryProvider from '@/lib/QueryProvider';
 import { AuthProvider } from '@/context/AuthContext_ACCESS_TOKEN_ONLY';
+import { NotificationProvider } from '../lib/notification/NotificationProvider';
 
 export const metadata: Metadata = {
   title: { default: 'AAWIZ', template: '%s | AAWIZ' },
@@ -40,29 +41,31 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <AuthProvider>
-            <Navbar
-              title="AAWIZ"
-              itemsLeft={[
-                { linkURL: '/form', title: 'form' },
-                { linkURL: '/dashboard', title: 'dashboard' },
-              ]}
-            />
-            <main>{children}</main>
-            <Footer
-              linkGroups={[
-                {
-                  title: 'MY LINKS',
-                  links: [
-                    {
-                      title: 'LINKEDIN',
-                      url: 'https://www.linkedin.com/in/arsam-bakhtyari-dev/',
-                    },
-                    { title: 'GITHUB', url: 'https://github.com/arsamhb' },
-                    { title: 'STRAVA', url: 'https://www.strava.com/athletes/90562407' },
-                  ],
-                },
-              ]}
-            />
+            <NotificationProvider>
+              <Navbar
+                title="AAWIZ"
+                itemsLeft={[
+                  { linkURL: '/form', title: 'form' },
+                  { linkURL: '/dashboard', title: 'dashboard' },
+                ]}
+              />
+              <main>{children}</main>
+              <Footer
+                linkGroups={[
+                  {
+                    title: 'MY LINKS',
+                    links: [
+                      {
+                        title: 'LINKEDIN',
+                        url: 'https://www.linkedin.com/in/arsam-bakhtyari-dev/',
+                      },
+                      { title: 'GITHUB', url: 'https://github.com/arsamhb' },
+                      { title: 'STRAVA', url: 'https://www.strava.com/athletes/90562407' },
+                    ],
+                  },
+                ]}
+              />
+            </NotificationProvider>
           </AuthProvider>
         </QueryProvider>
       </body>

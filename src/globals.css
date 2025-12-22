@@ -1,19 +1,120 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "daisyui";
+@theme {
+  /* we customize colors by namespace --color */
+  --color-gold: #ffb219;
+  /* To completely disable the default theme and use only custom values,
+   set the global theme variable namespace to initial: */
+  /* --*: initial; */
 
-/* 
-SOME SUGGESTED CSS STYLING
-* {
+  /* customizing shadow */
+  /* --shadow-normal? */
+
+  /* customizing border */
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 5px;
+
+  /* spacing */
+
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-standard-phone: 1rem;
+  --spacing-standard-tablet: 3rem;
+  --spacing-standard-laptop: 7rem;
+
+  /* font-size */
+  --text-xs: 0.75rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-2xl: 1.5rem;
+  --text-2xl: 1.5rem;
+  --text-heading: 2rem;
+  --leading-heading: 2.5rem;
+
+  /* screens */
+  --breakpoint-phone: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-laptop: 1024px;
+  --breakpoint-desktop: 1280px;
+}
+
+@utility border-sm {
+  @apply border;
+}
+@utility border-md {
+  @apply border-[3px];
+}
+@utility border-lg {
+  @apply border-[5px];
+}
+
+@plugin "daisyui/theme" {
+  name: 'mytheme';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+  --color-primary: #8b00ff;
+  --color-primary-content: #e5d9ff;
+  --color-secondary: #d96100;
+  --color-secondary-content: #110300;
+  --color-accent: #00bdff;
+  --color-accent-content: #000d16;
+  --color-neutral: #040705;
+  --color-neutral-content: #c4c6c5;
+  --color-base-100: #fff7ff;
+  --color-base-200: #ded7de;
+  --color-base-300: #beb7be;
+  --color-base-content: #161516;
+  --color-info: #00a3ff;
+  --color-info-content: #000a16;
+  --color-success: #50bb00;
+  --color-success-content: #020d00;
+  --color-warning: #f6bb00;
+  --color-warning-content: #150d00;
+  --color-error: #e15154;
+  --color-error-content: #120202;
+}
+
+@plugin "daisyui/theme" {
+  name: 'mytheme-dark';
+  prefersdark: true;
+  --color-primary: #8b00ff;
+  --color-primary-content: #e5d9ff;
+  --color-secondary: #d96100;
+  --color-secondary-content: #110300;
+  --color-accent: #00bdff;
+  --color-accent-content: #000d16;
+  --color-neutral: #0f1214;
+  --color-neutral-content: #d7d9d8;
+  --color-base-100: #0d0d10;
+  --color-base-200: #1a1a1e;
+  --color-base-300: #27272d;
+  --color-base-content: #e5e5e8;
+  --color-info: #00a3ff;
+  --color-info-content: #000a16;
+  --color-success: #50bb00;
+  --color-success-content: #020d00;
+  --color-warning: #f6bb00;
+  --color-warning-content: #150d00;
+  --color-error: #e15154;
+  --color-error-content: #120202;
+}
+
+/* SOME SUGGESTED CSS STYLING
+*/
+/* {
   direction: rtl;
 } */
 
-/* #root {
+#root {
   width: 100vw;
   min-height: 100vh;
-} */
+} /* MAIN ELEMENTS STYLING */
 
-/* MAIN ELEMENTS STYLING */
 body {
   @apply min-h-[100vh] flex flex-col;
 }
@@ -24,7 +125,7 @@ main {
 
 /* ALL SHADOWS */
 
-/* GLOBAL STANDARD SPACING PADDING AND MARGIN */
+/* GLOBAL STANDARD SPACING PADDING AND MARGIN*/
 .standard-horizontal-padding {
   @apply px-standard-phone md:px-standard-tablet lg:px-standard-laptop;
 }
@@ -36,8 +137,4 @@ main {
 
 .custom-error-message {
   @apply text-error text-xs font-bold;
-}
-
-.custom-error-label {
-  @apply text-error;
 }
