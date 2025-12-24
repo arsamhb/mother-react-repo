@@ -6,15 +6,21 @@ import {
   JSON_PLACEHOLDER_POSTS_ROUTE,
 } from './route.api';
 
-const useGetPosts = (options?: { enabled: boolean }) => {
+const useGetPosts = ({ options }: { options?: { enabled: boolean } } = {}) => {
   return useQuery({
     queryKey: ['get-posts'],
     queryFn: api.get<ReadPostResponse>(JSON_PLACEHOLDER_POSTS_ROUTE),
-    enabled: options ? options.enabled : true,
+    enabled: options?.enabled ?? true,
   });
 };
 
-const useGetPostComments = (postId: string, options?: { enabled: boolean }) => {
+const useGetPostComments = ({
+  postId,
+  options,
+}: {
+  postId: string;
+  options?: { enabled: boolean };
+}) => {
   return useQuery({
     queryKey: ['get-post-comments', postId],
     queryFn: api.get<ReadPostCommentsResponse>(getJsonPlaceHolderPostCommentsRouteByPostId(postId)),
