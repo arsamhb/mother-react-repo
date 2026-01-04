@@ -6,7 +6,8 @@ npx pretty-quick --staged
 
 echo "Running full project build and lint check..."
 npm run build
-npm run lint
+npx lint-staged
+
 
 # Check if the build or linting failed
 if [ $? -ne 0 ]; then

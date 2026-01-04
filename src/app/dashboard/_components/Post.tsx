@@ -14,12 +14,10 @@ interface Props {
 const Post: React.FC<Props> = ({ post }) => {
   const [fetchComments, setFetchComments] = useState<boolean>(false);
 
-  const { data: postComments, isLoading: isLoadingPostComments } = useGetPostComments(
-    post.id.toString(),
-    {
-      enabled: fetchComments,
-    }
-  );
+  const { data: postComments, isLoading: isLoadingPostComments } = useGetPostComments({
+    postId: post.id.toString(),
+    options: { enabled: fetchComments },
+  });
 
   return (
     <article
