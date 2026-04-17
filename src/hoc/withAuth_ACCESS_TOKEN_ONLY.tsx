@@ -2,8 +2,6 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/axiosInstance';
 import { useAuth } from '@/context/AuthContext_ACCESS_TOKEN_ONLY';
 
 export interface CustomErrorResponseSchema {
@@ -21,33 +19,18 @@ const withAuth = (options?: WithAuthOptions) => {
   return function <P extends object>(WrappedComponent: React.ComponentType<P>) {
     return function ComponentWithAuth(props: any) {
       const router = useRouter();
-      const { token, initializing, logout } = useAuth();
-
-      const { error, isFetching } = useQuery<any, CustomErrorResponseSchema>({
-        queryKey: ['authTokenCheck'],
-        queryFn: api.post('SOME_ROUTE_TO_BE_IMPORTED'),
-        enabled: false,
-        staleTime: 5 * 60 * 1000,
-        refetchOnWindowFocus: false,
-      });
-
+      const { token, initializing, isAuthenticated } = useAuth();
       useEffect(() => {
-        if (error?.statusCode === 401) {
-          logout();
+        if (!isAuthenticated && !initializing && !token) {
+          router.replace(redirectPath);
         }
-      }, [error, logout]);
+      }, [token, initializing, redirectPath, isAuthenticated]);
 
-      useEffect(() => {
-        if (!initializing && !token) {
-          router.push(redirectPath);
-        }
-      }, [token, initializing, router, redirectPath]);
-
-      if (initializing || isFetching) {
+      if (initializing) {
         return (
           <div className="flex flex-col gap-lg m-auto items-center">
             <h3 className="text-2xl">در حال دریافت اطلاعات کاربر</h3>
-            <span className="loading loading-dots loading-lg"></span>
+            <span className="loading loading-infinity loading-xl text-info"></span>
           </div>
         );
       }

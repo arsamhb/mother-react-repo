@@ -1,13 +1,26 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import authService from '@/lib/auth/authService_ACCESS_TOKEN_ONLY';
-
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { isRefreshing, setIsRefreshing, processQueue } from '@/lib/axiosInstance';
+// import { ADMIN_REFRESH_ROUTE } from '@/app/auth/_service/route.api';
+const ADMIN_REFRESH_ROUTE = '/';
 interface IAuthContext {
   isAuthenticated: boolean;
   token: string | null;
   initializing: boolean;
-  login: (token: string) => void;
+  login: (accessToken: string, refreshToken: string) => void;
   logout: () => void;
 }
 
@@ -19,65 +32,116 @@ const AuthContext = createContext<IAuthContext>({
   logout: () => {},
 });
 
+const TOKEN_KEY = process.env.NEXT_PUBLIC_TOKEN_KEY_NAME ?? 'access';
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [initializing, setInitializing] = useState(true);
+  const router = useRouter();
+  const refreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const login = (newToken: string) => {
-    authService.setToken(newToken);
+  const silentRefreshRef = useRef<() => Promise<void>>(async () => {});
+  const scheduleRefreshRef = useRef<(accessToken: string) => void>(() => {});
+
+  const logout = useCallback(() => {
+    authService.clearSession();
+    if (refreshTimer.current) clearTimeout(refreshTimer.current);
+    router.push('/auth');
+  }, [router]);
+
+  scheduleRefreshRef.current = (accessToken: string) => {
+    if (refreshTimer.current) clearTimeout(refreshTimer.current);
+    try {
+      const decoded = jwtDecode<{ exp: number }>(accessToken);
+      const expiresInMs = decoded.exp * 1000 - Date.now();
+      const refreshInMs = expiresInMs - 60 * 1000; // 1 min before expiry
+
+      if (refreshInMs <= 0) {
+        silentRefreshRef.current();
+        return;
+      }
+
+      refreshTimer.current = setTimeout(() => {
+        silentRefreshRef.current();
+      }, refreshInMs);
+    } catch {
+      // malformed token — reactive interceptor will handle it
+    }
   };
 
-  const logout = () => {
-    authService.deleteToken();
+  silentRefreshRef.current = async () => {
+    if (isRefreshing) return;
+
+    const refreshToken = authService.getRefreshToken();
+    if (!refreshToken) {
+      logout();
+      return;
+    }
+
+    setIsRefreshing(true);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/${ADMIN_REFRESH_ROUTE}`,
+        { refreshToken }
+      );
+      const newAccessToken = response.data.accessToken;
+      const newRefreshToken = response.data.refreshToken ?? refreshToken;
+
+      authService.setSession(newAccessToken, newRefreshToken);
+      processQueue(null, newAccessToken);
+      scheduleRefreshRef.current(newAccessToken);
+    } catch {
+      processQueue(null, null);
+      logout();
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
-  // SET UP THE LOGIC BETWEEN AUTH CONTEXT AND AUTH SERVICE
+  const login = useCallback((accessToken: string, refreshToken: string) => {
+    authService.setSession(accessToken, refreshToken);
+    scheduleRefreshRef.current(accessToken);
+  }, []);
+
+  const handleAuthError = useCallback(() => logout(), [logout]);
+
+  // Sync with authService + restore session on mount
   useEffect(() => {
-    const savedToken = authService.getToken();
-    setToken(savedToken);
+    const stored = authService.getToken();
+    if (stored) {
+      setToken(stored);
+      scheduleRefreshRef.current(stored);
+    }
     setInitializing(false);
 
-    const handleAuthChange = (newToken: string | null) => {
-      setToken(newToken);
-    };
-
+    const handleAuthChange = (newToken: string | null) => setToken(newToken);
     authService.subscribe(handleAuthChange);
     return () => authService.unsubscribe(handleAuthChange);
   }, []);
 
-  // TO CHECK THE VALIDITY OF THE TOKEN ON APPLICATION INITIALIZATION
+  // Cross-tab storage sync
   useEffect(() => {
-    if (authService.getToken()) {
-      // const checkTokenOnAppInit = api.post('SOME_ROUTE_TO_BE_IMPORTED');
-      // checkTokenOnAppInit({}).catch((err) => {
-      //   if (err.statusCode === 401) {
-      //     logout();
-      //   }
-      // });
+    function handleStorage(e: StorageEvent) {
+      if (e.key !== TOKEN_KEY) return;
+      if (e.newValue) {
+        authService.setToken(e.newValue);
+        scheduleRefreshRef.current(e.newValue);
+      } else {
+        logout();
+      }
     }
-  }, []);
-
-  // SET UP THE EVENT LISTENER FOR UNAUTHORIZED RESPONSES
-  useEffect(() => {
-    function handleAuthError() {
-      logout();
-    }
-
-    window.addEventListener('auth:error', handleAuthError);
-    return () => {
-      window.removeEventListener('auth:error', handleAuthError);
-    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }, [logout]);
 
+  useEffect(() => {
+    window.addEventListener('auth:error', handleAuthError);
+    return () => window.removeEventListener('auth:error', handleAuthError);
+  }, [handleAuthError]);
+
   const authValue = useMemo(
-    () => ({
-      isAuthenticated: !!token,
-      token,
-      initializing,
-      login,
-      logout,
-    }),
-    [token, initializing]
+    () => ({ isAuthenticated: !!token, token, initializing, login, logout }),
+    [token, initializing, login, logout]
   );
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
