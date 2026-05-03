@@ -11,16 +11,14 @@ import React, {
 } from 'react';
 import authService from '@/lib/auth/authService_ACCESS_TOKEN_ONLY';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { isRefreshing, setIsRefreshing, processQueue } from '@/lib/axiosInstance';
-// import { ADMIN_REFRESH_ROUTE } from '@/app/auth/_service/route.api';
-const ADMIN_REFRESH_ROUTE = '/';
+import { refreshTokens } from '@/lib/axiosInstance';
+
 interface IAuthContext {
   isAuthenticated: boolean;
   token: string | null;
   initializing: boolean;
-  login: (accessToken: string, refreshToken: string) => void;
+  login: (accessToken: string, refreshToken?: string) => void;
   logout: () => void;
 }
 
@@ -39,8 +37,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [initializing, setInitializing] = useState(true);
   const router = useRouter();
   const refreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const silentRefreshRef = useRef<() => Promise<void>>(async () => {});
   const scheduleRefreshRef = useRef<(accessToken: string) => void>(() => {});
 
   const logout = useCallback(() => {
@@ -50,56 +46,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [router]);
 
   scheduleRefreshRef.current = (accessToken: string) => {
+    // Only schedule if a refresh token exists — otherwise nothing to refresh with
+    if (!authService.getRefreshToken()) return;
+
     if (refreshTimer.current) clearTimeout(refreshTimer.current);
+
     try {
       const decoded = jwtDecode<{ exp: number }>(accessToken);
       const expiresInMs = decoded.exp * 1000 - Date.now();
-      const refreshInMs = expiresInMs - 60 * 1000; // 1 min before expiry
+      const refreshInMs = expiresInMs - 60 * 1000;
 
       if (refreshInMs <= 0) {
-        silentRefreshRef.current();
+        refreshTokens()
+          .then((newToken) => scheduleRefreshRef.current(newToken))
+          .catch(() => logout());
         return;
       }
 
       refreshTimer.current = setTimeout(() => {
-        silentRefreshRef.current();
+        refreshTokens()
+          .then((newToken) => scheduleRefreshRef.current(newToken))
+          .catch(() => logout());
       }, refreshInMs);
     } catch {
       // malformed token — reactive interceptor will handle it
     }
   };
 
-  silentRefreshRef.current = async () => {
-    if (isRefreshing) return;
-
-    const refreshToken = authService.getRefreshToken();
-    if (!refreshToken) {
-      logout();
-      return;
-    }
-
-    setIsRefreshing(true);
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/${ADMIN_REFRESH_ROUTE}`,
-        { refreshToken }
-      );
-      const newAccessToken = response.data.accessToken;
-      const newRefreshToken = response.data.refreshToken ?? refreshToken;
-
-      authService.setSession(newAccessToken, newRefreshToken);
-      processQueue(null, newAccessToken);
-      scheduleRefreshRef.current(newAccessToken);
-    } catch {
-      processQueue(null, null);
-      logout();
-    } finally {
-      setIsRefreshing(false);
-    }
-  };
-
-  const login = useCallback((accessToken: string, refreshToken: string) => {
+  const login = useCallback((accessToken: string, refreshToken?: string) => {
     authService.setSession(accessToken, refreshToken);
+    // scheduleRefreshRef guards internally — safe to call always
     scheduleRefreshRef.current(accessToken);
   }, []);
 
@@ -110,13 +86,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const stored = authService.getToken();
     if (stored) {
       setToken(stored);
+      // scheduleRefreshRef will no-op if no refresh token stored
       scheduleRefreshRef.current(stored);
     }
     setInitializing(false);
 
-    const handleAuthChange = (newToken: string | null) => setToken(newToken);
-    authService.subscribe(handleAuthChange);
-    return () => authService.unsubscribe(handleAuthChange);
+    const handleAuthChange = (newToken: string | null) => {
+      setToken(newToken);
+      // re-sync the proactive timer whenever the token changes from any source
+      if (newToken) scheduleRefreshRef.current(newToken);
+    };
+    const unsubscribe = authService.subscribe(handleAuthChange);
+    return unsubscribe;
   }, []);
 
   // Cross-tab storage sync
@@ -125,6 +106,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (e.key !== TOKEN_KEY) return;
       if (e.newValue) {
         authService.setToken(e.newValue);
+        // scheduleRefreshRef will no-op if no refresh token stored
         scheduleRefreshRef.current(e.newValue);
       } else {
         logout();
@@ -134,11 +116,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => window.removeEventListener('storage', handleStorage);
   }, [logout]);
 
+  // Global auth error (fired by axiosInstance on unrecoverable 401)
   useEffect(() => {
     window.addEventListener('auth:error', handleAuthError);
     return () => window.removeEventListener('auth:error', handleAuthError);
   }, [handleAuthError]);
 
+  // LOGIN BY THE TOKEN THAT GIVEN FROM BACK-END (ONE-TIME READ)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const authToken = urlParams.get('auth');
+
+      if (authToken) {
+        login(authToken);
+        // Clean up URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, '', newUrl);
+      }
+    }
+  }, []);
   const authValue = useMemo(
     () => ({ isAuthenticated: !!token, token, initializing, login, logout }),
     [token, initializing, login, logout]
