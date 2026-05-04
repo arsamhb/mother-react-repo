@@ -1,9 +1,12 @@
 import React from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
 export interface TextInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    'className' | 'type' | 'value' | 'onChange' | 'id' | 'name'
+    'className' | 'value' | 'onChange' | 'id' | 'name'
   > {
   value?: string | number;
   label: string;
@@ -27,20 +30,20 @@ const TextInput: React.FC<TextInputProps> = ({
   ...rest
 }) => {
   return (
-    <div>
-      <label htmlFor={id} className={`label ${error ? 'custom-error-label' : 'custom-label-text'}`}>
+    <div className="flex flex-col gap-1">
+      <Label htmlFor={id} className={error ? 'custom-error-label' : 'custom-label-text'}>
         {label}
-      </label>
-      <input
+      </Label>
+      <Input
         id={id}
         name={name}
         type={type}
-        className="input input-bordered w-full"
-        placeholder={placeholder}
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
+        className={cn('w-full', error && 'border-destructive focus-visible:ring-destructive')}
         {...rest}
       />
       {error && (

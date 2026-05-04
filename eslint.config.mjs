@@ -11,7 +11,15 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: ['src/lib/axiosInstance.ts', 'node_modules', 'dist', 'build', '.next'],
+    ignores: [
+      'src/lib/axiosInstance.ts',
+      'src/lib/serverGraphql.ts',
+      'src/lib/serverApi.ts',
+      'node_modules',
+      'dist',
+      'build',
+      '.next',
+    ],
   },
 
   ...compat.extends(
@@ -40,6 +48,7 @@ const eslintConfig = [
   {
     files: [
       'src/hoc/**',
+      'src/lib/server/**',
       'src/app/question/createByWord/_components/WordFileQuestionUploadFlow.tsx',
       'src/shared/UI/FileInput/index.tsx',
       '**/hook.mutation.tsx',

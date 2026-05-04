@@ -20,17 +20,31 @@ const withAuth = (options?: WithAuthOptions) => {
     return function ComponentWithAuth(props: any) {
       const router = useRouter();
       const { token, initializing, isAuthenticated } = useAuth();
+
       useEffect(() => {
         if (!isAuthenticated && !initializing && !token) {
+          sessionStorage.setItem(
+            'redirectAfterLogin',
+            window.location.pathname + window.location.search
+          );
           router.replace(redirectPath);
         }
       }, [token, initializing, redirectPath, isAuthenticated]);
 
       if (initializing) {
         return (
-          <div className="flex flex-col gap-lg m-auto items-center">
+          <div className="flex flex-col gap-lg m-auto h-screen justify-center items-center">
             <h3 className="text-2xl">در حال دریافت اطلاعات کاربر</h3>
-            <span className="loading loading-infinity loading-xl text-info"></span>
+            <span className="loading loading-infinity loading-xl text-primary"></span>
+          </div>
+        );
+      }
+
+      if (!isAuthenticated) {
+        return (
+          <div className="flex flex-col gap-lg m-auto h-screen justify-center items-center">
+            <h3 className="text-2xl">در حال انتقال ...</h3>
+            <span className="loading loading-infinity loading-xl text-primary"></span>
           </div>
         );
       }

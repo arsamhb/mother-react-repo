@@ -1,8 +1,10 @@
-import clsx from 'clsx';
-import React, { useEffect, useRef } from 'react';
+'use client';
+import React from 'react';
+import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
+import { X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export interface ModalWrapperProps {
-  modalId: string;
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
   isOpen?: boolean;
@@ -10,57 +12,38 @@ export interface ModalWrapperProps {
   withCloseButton?: boolean;
 }
 
+const sizeMap = {
+  sm: 'max-w-[480px]',
+  md: 'max-w-[640px]',
+  lg: 'max-w-[900px]',
+};
+
 const ModalWrapper: React.FC<ModalWrapperProps> = ({
-  modalId,
   children,
   size = 'md',
   isOpen,
   onClose,
   withCloseButton = true,
 }) => {
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
-
-  const closeModal = () => {
-    dialogRef.current?.close();
-    onClose?.();
-  };
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    if (isOpen) {
-      if (!dialog.open) dialog.showModal();
-      dialog.setAttribute('aria-modal', 'true');
-    } else {
-      if (dialog.open) dialog.close();
-    }
-  }, [isOpen]);
-
-  const dialogClassName = clsx(
-    'backdrop:bg-base-300/80 relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg bg-base-300',
-    {
-      'w-[480px]': size === 'sm',
-      'w-[640px]': size === 'md',
-      'w-[900px]': size === 'lg',
-    }
-  );
-
   return (
-    <dialog
-      id={modalId}
-      ref={dialogRef}
-      className={dialogClassName}
-      role="dialog"
-      aria-modal="true"
-    >
-      {withCloseButton && (
-        <button aria-label="Close modal" onClick={closeModal} className="absolute top-2 right-4">
-          ✕
-        </button>
-      )}
-      <div className="flex flex-col items-center pt-2 gap-md">{children}</div>
-    </dialog>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose?.()}>
+      <DialogContent
+        className={cn(
+          'relative pt-lg pr-md pb-md p-md shadow-lg rounded-lg bg-base-300',
+          sizeMap[size]
+        )}
+      >
+        {withCloseButton && (
+          <DialogClose
+            aria-label="Close modal"
+            className="absolute top-2 right-4 hover:opacity-70 transition-opacity"
+          >
+            <X className="size-4" />
+          </DialogClose>
+        )}
+        <div className="flex flex-col items-center pt-2 gap-md">{children}</div>
+      </DialogContent>
+    </Dialog>
   );
 };
 

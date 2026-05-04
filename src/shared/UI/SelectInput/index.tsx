@@ -1,18 +1,24 @@
 import React from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
-export interface SelectInputProps
-  extends Omit<
-    React.SelectHTMLAttributes<HTMLSelectElement>,
-    'className' | 'value' | 'onChange' | 'id' | 'name'
-  > {
+export interface SelectInputProps {
   label: string;
   placeholder: string;
   options: Array<{ key: string; value: string }>;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (value: string) => void; // ← string directly, same as RadioInput
   error?: string;
   id: string;
   name: string;
+  disabled?: boolean;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({
@@ -24,32 +30,30 @@ const SelectInput: React.FC<SelectInputProps> = ({
   error,
   id,
   name,
-  ...rest
+  disabled,
 }) => {
   return (
-    <div>
-      <label htmlFor={id} className={`label ${error ? 'custom-error-label' : 'custom-label-text'}`}>
+    <div className="flex flex-col gap-1">
+      <Label htmlFor={id} className={error ? 'custom-error-label' : 'custom-label-text'}>
         {label}
-      </label>
-      <select
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
-        aria-invalid={!!error}
-        aria-describedby={error ? `${id}-error` : undefined}
-        className="select select-bordered w-full"
-        {...rest}
-      >
-        <option value="" disabled hidden>
-          {placeholder}
-        </option>
-        {options.map((opt) => (
-          <option value={opt.key} key={opt.key}>
-            {opt.value}
-          </option>
-        ))}
-      </select>
+      </Label>
+      <Select value={value} onValueChange={onChange} name={name} disabled={disabled}>
+        <SelectTrigger
+          id={id}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${id}-error` : undefined}
+          className={cn('w-full', error && 'border-destructive focus:ring-destructive')}
+        >
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((opt) => (
+            <SelectItem key={opt.key} value={opt.key}>
+              {opt.value}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
       {error && (
         <p id={`${id}-error`} role="alert" className="custom-error-message">
           {error}
