@@ -1,11 +1,11 @@
-import React from 'react';
+import { Spinner } from '@/components/ui/spinner';
 
-interface LoadingProps {
-  size: 'xs' | 'sm' | 'md' | 'lg';
+function Loading({ size = 'lg' }: { size?: 'xs' | 'sm' | 'md' | 'lg' }) {
+  return (
+    <div className="flex items-center justify-center">
+      <Spinner size={size} />
+    </div>
+  );
 }
-
-const Loading: React.FC<LoadingProps> = ({ size }) => {
-  return <span className={`loading loading-dots loading-${size}`}></span>;
-};
 
 export default Loading;

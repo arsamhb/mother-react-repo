@@ -116,13 +116,12 @@ const EmploymentForm = () => {
           )}
         />
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="default">
           Submit
         </Button>
       </form>
 
       <ModalWrapper
-        modalId="employment-form-modal"
         size="sm"
         isOpen={isOpen}
         onClose={() => {
@@ -140,7 +139,7 @@ const EmploymentForm = () => {
             I agree to the privacy policy: {getValues('isAgree') ? 'Yes' : 'No'}
           </p>
           <Button
-            variant="primary"
+            variant="default"
             onClick={() => {
               close();
               reset();

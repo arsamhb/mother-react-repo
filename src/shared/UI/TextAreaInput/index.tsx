@@ -1,27 +1,15 @@
 'use client';
-import clsx from 'clsx';
 import React, { ChangeEvent } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
-export interface TextAreaInputProps
-  extends Omit<
-    React.InputHTMLAttributes<HTMLTextAreaElement>,
-    | 'className'
-    | 'type'
-    | 'value'
-    | 'onChange'
-    | 'id'
-    | 'name'
-    | 'rows'
-    | 'cols'
-    | 'disabled'
-    | 'placeholder'
-    | 'onFocus'
-  > {
+export interface TextAreaInputProps {
   value: string;
   label?: string;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder: string;
-  error?: string | undefined;
+  error?: string;
   id: string;
   name: string;
   containerClassName?: string;
@@ -46,33 +34,38 @@ const TextArea: React.FC<TextAreaInputProps> = ({
   rows = 4,
   cols,
   resize = 'none',
-  ...props
 }) => {
   return (
     <div className={containerClassName}>
-      <div className="label p-0">{label && <h4 className={'custom-label-text'}>{label}</h4>}</div>
-      <label
-        className={clsx(
-          `textarea flex items-start gap-2 ${labelClassName}`,
-          error ? 'textarea-error' : 'textarea-default'
+      {label && (
+        <Label htmlFor={id} className="custom-label-text p-0 mb-1">
+          {label}
+        </Label>
+      )}
+      <Textarea
+        id={id}
+        name={name}
+        rows={rows}
+        cols={cols}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
+        style={{ resize }}
+        onFocus={(e) => e.currentTarget.scrollIntoView({ block: 'center', behavior: 'smooth' })}
+        className={cn(
+          'w-full min-h-25 font-normal text-neutral-content',
+          labelClassName,
+          error && 'border-destructive focus-visible:ring-destructive'
         )}
-      >
-        <textarea
-          disabled={disabled}
-          id={id}
-          name={name}
-          rows={rows}
-          cols={cols}
-          style={{ resize }}
-          className="grow font-normal text-neutral-content min-h-25 p-3 outline-none rounded-xs bg-base-100"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onFocus={(e) => e.currentTarget.scrollIntoView({ block: 'center', behavior: 'smooth' })}
-          {...props}
-        />
-      </label>
-      {error && <p className="custom-error-message">{error}</p>}
+      />
+      {error && (
+        <p id={`${id}-error`} role="alert" className="custom-error-message">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

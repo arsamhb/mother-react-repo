@@ -1,17 +1,14 @@
-import clsx from 'clsx';
 import React from 'react';
-import { ChangeEvent } from 'react';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
-export interface RadioInputProps
-  extends Omit<
-    React.SelectHTMLAttributes<HTMLInputElement>,
-    'className' | 'value' | 'onChange' | 'id' | 'name' | 'type' | 'checked' | 'disabled'
-  > {
+export interface RadioInputProps {
   label: string;
   value: string;
   isChecked: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  error?: string | undefined;
+  onChange: (value: string) => void; // ← changed from ChangeEvent to string
+  error?: string;
   id: string;
   name: string;
   disabled?: boolean;
@@ -31,27 +28,33 @@ const RadioInput: React.FC<RadioInputProps> = ({
   containerClassName,
   labelClassName,
 }) => {
-  const labelTitleClassName = clsx('label-text', {
-    'custom-error-label': error,
-  });
-
   return (
     <div className={containerClassName}>
-      <label className={`custom-label-text flex items-center gap-md ${labelClassName || ''}`}>
-        <input
-          id={id}
-          name={name}
-          type="radio"
-          value={value}
-          checked={isChecked}
-          disabled={disabled}
-          className="radio radio-primary border-2"
-          onChange={onChange}
-          onFocus={(e) => e.currentTarget.scrollIntoView({ block: 'center', behavior: 'smooth' })}
-        />
-        <span className={labelTitleClassName}>{label}</span>
-      </label>
-      {error && <p className="custom-error-message">{error}</p>}
+      <RadioGroup
+        value={isChecked ? value : ''}
+        onValueChange={onChange}
+        name={name}
+        disabled={disabled}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
+      >
+        <Label
+          htmlFor={id}
+          className={cn('custom-label-text flex items-center gap-md', labelClassName)}
+        >
+          <RadioGroupItem
+            id={id}
+            value={value}
+            onFocus={(e) => e.currentTarget.scrollIntoView({ block: 'center', behavior: 'smooth' })}
+          />
+          <span className={cn('label-text', { 'custom-error-label': error })}>{label}</span>
+        </Label>
+      </RadioGroup>
+      {error && (
+        <p id={`${id}-error`} role="alert" className="custom-error-message">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

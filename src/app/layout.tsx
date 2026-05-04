@@ -5,6 +5,10 @@ import Footer from '@/shared/layout/Footer';
 import QueryProvider from '@/lib/QueryProvider';
 import { AuthProvider } from '@/context/AuthContext_ACCESS_TOKEN_ONLY';
 import { NotificationProvider } from '../lib/notification/NotificationProvider';
+// import { Inter } from 'next/font/google';
+import { cn } from '@/lib/utils';
+
+// const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: { default: 'AAWIZ', template: '%s | AAWIZ' },
@@ -34,7 +38,7 @@ export default function RootLayout({
   })();`;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={cn('font-sans')}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: initTheme }} />
       </head>
